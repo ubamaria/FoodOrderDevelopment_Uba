@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodOrderView", "FoodOrderView\FoodOrderView.csproj", "{02A2D541-CC68-4A9D-ACFA-38CE90DA7C11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodOrderBusinessLogic", "FoodOrderBusinessLogic\FoodOrderBusinessLogic.csproj", "{044AF63A-B579-49AC-9DF4-624D0E14FB39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{02A2D541-CC68-4A9D-ACFA-38CE90DA7C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02A2D541-CC68-4A9D-ACFA-38CE90DA7C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02A2D541-CC68-4A9D-ACFA-38CE90DA7C11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{044AF63A-B579-49AC-9DF4-624D0E14FB39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{044AF63A-B579-49AC-9DF4-624D0E14FB39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{044AF63A-B579-49AC-9DF4-624D0E14FB39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{044AF63A-B579-49AC-9DF4-624D0E14FB39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
