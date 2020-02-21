@@ -23,7 +23,6 @@ namespace FoodOrderView
         {
             InitializeComponent();
             this.logic = logic;
-
         }
 
         private void FormDishes_Load(object sender, EventArgs e)
