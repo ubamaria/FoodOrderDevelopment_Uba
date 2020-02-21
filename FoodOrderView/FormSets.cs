@@ -1,4 +1,5 @@
-﻿using FoodOrderBusinessLogic.Interfaces;
+﻿using FoodOrderBusinessLogic.BindingModels;
+using FoodOrderBusinessLogic.Interfaces;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -24,12 +25,13 @@ namespace FoodOrderView
         {
             try
             {
-                var list = logic.GetList();
+                var list = logic.Read(null);
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[3].Visible = false;
                 }
             }
             catch (Exception ex)
@@ -71,7 +73,7 @@ namespace FoodOrderView
                     int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        logic.DelElement(id);
+                        logic.Delete(new SetBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {

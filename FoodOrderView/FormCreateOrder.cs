@@ -1,4 +1,5 @@
 ﻿using FoodOrderBusinessLogic.BindingModels;
+using FoodOrderBusinessLogic.BusinessLogics;
 using FoodOrderBusinessLogic.Interfaces;
 using FoodOrderBusinessLogic.ViewModels;
 using System;
@@ -19,8 +20,8 @@ namespace FoodOrderView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly ISetLogic logicS;
-        private readonly IMainLogic logicM;
-        public FormCreateOrder(ISetLogic logicS, IMainLogic logicM)
+        private readonly MainLogic logicM;
+        public FormCreateOrder(ISetLogic logicS, MainLogic logicM)
         {
             InitializeComponent();
             this.logicS = logicS;
@@ -32,7 +33,7 @@ namespace FoodOrderView
         {
             try
             {
-                var list = logicS.GetList();
+                var list = logicS.Read(null);
                 comboBoxSet.DataSource = list;
                 comboBoxSet.DisplayMember = "SetName";
                 comboBoxSet.ValueMember = "Id";
@@ -51,9 +52,12 @@ namespace FoodOrderView
                 try
                 {
                     int id = Convert.ToInt32(comboBoxSet.SelectedValue);
-                    SetViewModel set = logicS.GetElement(id);
+                    SetViewModel set = logicS.Read(new SetBindingModel
+                    {
+                        Id = id
+                    })?[0];
                     int count = Convert.ToInt32(textBoxCount.Text);
-                    textBoxSum.Text = (count * set.Price).ToString();
+                    textBoxSum.Text = (count * set?.Price ?? 0).ToString();
                 }
                 catch (Exception ex)
                 {
@@ -89,7 +93,7 @@ namespace FoodOrderView
             }
             try
             {
-                logicM.CreateOrder(new OrderBindingModel
+                logicM.CreateOrder(new CreateOrderBindingModel
                 {
                     SetId = Convert.ToInt32(comboBoxSet.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),

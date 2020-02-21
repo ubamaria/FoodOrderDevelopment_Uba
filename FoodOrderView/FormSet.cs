@@ -21,7 +21,7 @@ namespace FoodOrderView
         public int Id { set { id = value; } }
         private readonly ISetLogic logic;
         private int? id;
-        private List<SetOfDishViewModel> setOfDishes;
+        private Dictionary<int, (string, int)> setOfDishes;
 
         public FormSet(ISetLogic service)
         {
@@ -35,7 +35,11 @@ namespace FoodOrderView
             {
                 try
                 {
-                    SetViewModel view = logic.GetElement(id.Value);
+                    SetViewModel view = logic.Read(new SetBindingModel
+                    {
+                        Id = id.Value
+                    })?[0];
+
                     if (view != null)
                     {
                         textBoxName.Text = view.SetName;
@@ -52,7 +56,7 @@ namespace FoodOrderView
             }
             else
             {
-                setOfDishes = new List<SetOfDishViewModel>();
+                setOfDishes = new Dictionary<int, (string, int)>();
             }
         }
 
@@ -62,13 +66,12 @@ namespace FoodOrderView
             {
                 if (setOfDishes != null)
                 {
-                    dataGridView.DataSource = null;
-                    dataGridView.DataSource = setOfDishes;
-                    dataGridView.Columns[0].Visible = false;
-                    dataGridView.Columns[1].Visible = false;
-                    dataGridView.Columns[2].Visible = false;
-                    dataGridView.Columns[3].AutoSizeMode =
-                   DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Rows.Clear();
+                    foreach (var pc in setOfDishes)
+                    {
+                        dataGridView.Rows.Add(new object[] { pc.Key, pc.Value.Item1,
+pc.Value.Item2 });
+                    }
                 }
             }
             catch (Exception ex)
@@ -83,13 +86,13 @@ namespace FoodOrderView
             var form = Container.Resolve<FormSetOfDish>();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                if (form.ModelView != null)
+                if (setOfDishes.ContainsKey(form.Id))
                 {
-                    if (id.HasValue)
-                    {
-                        form.ModelView.SetId = id.Value;
-                    }
-                    setOfDishes.Add(form.ModelView);
+                    setOfDishes[form.Id] = (form.DishName, form.Count);
+                }
+                else
+                {
+                    setOfDishes.Add(form.Id, (form.DishName, form.Count));
                 }
                 LoadData();
             }
@@ -100,12 +103,12 @@ namespace FoodOrderView
             if (dataGridView.SelectedRows.Count == 1)
             {
                 var form = Container.Resolve<FormSetOfDish>();
-                form.ModelView =
-               setOfDishes[dataGridView.SelectedRows[0].Cells[0].RowIndex];
+                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                form.Id = id;
+                form.Count = setOfDishes[id].Item2;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    setOfDishes[dataGridView.SelectedRows[0].Cells[0].RowIndex] =
-                   form.ModelView;
+                    setOfDishes[form.Id] = (form.DishName, form.Count);
                     LoadData();
                 }
             }
@@ -121,7 +124,7 @@ namespace FoodOrderView
                     try
                     {
 
-                        setOfDishes.RemoveAt(dataGridView.SelectedRows[0].Cells[0].RowIndex);
+                        setOfDishes.Remove(Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value));
                     }
                     catch (Exception ex)
                     {
@@ -160,36 +163,13 @@ namespace FoodOrderView
             }
             try
             {
-                List<SetOfDishBindingModel> setOfDishesBM = new
-               List<SetOfDishBindingModel>(); for (int i = 0; i < setOfDishes.Count; ++i)
+                logic.CreateOrUpdate(new SetBindingModel
                 {
-                    setOfDishesBM.Add(new SetOfDishBindingModel
-                    {
-                        Id = setOfDishes[i].Id,
-                        SetId = setOfDishes[i].SetId,
-                        DishId = setOfDishes[i].DishId,
-                        Count = setOfDishes[i].Count
-                    });
-                }
-                if (id.HasValue)
-                {
-                    logic.UpdElement(new SetBindingModel
-                    {
-                        Id = id.Value,
-                        SetName = textBoxName.Text,
-                        Price = Convert.ToDecimal(textBoxPrice.Text),
-                        SetOfDishes = setOfDishesBM
-                    });
-                }
-                else
-                {
-                    logic.AddElement(new SetBindingModel
-                    {
-                        SetName = textBoxName.Text,
-                        Price = Convert.ToDecimal(textBoxPrice.Text),
-                        SetOfDishes = setOfDishesBM
-                    });
-                }
+                    Id = id,
+                    SetName = textBoxName.Text,
+                    Price = Convert.ToDecimal(textBoxPrice.Text),
+                    SetOfDishes = setOfDishes
+                });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
@@ -200,7 +180,6 @@ namespace FoodOrderView
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
             }
-
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

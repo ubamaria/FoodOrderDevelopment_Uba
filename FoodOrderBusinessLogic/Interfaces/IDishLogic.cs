@@ -8,11 +8,9 @@ namespace FoodOrderBusinessLogic.Interfaces
 {
     public interface IDishLogic
     {
-        List<DishViewModel> GetList();
-        DishViewModel GetElement(int id);
-        void AddElement(DishBindingModel model);
-        void UpdElement(DishBindingModel model);
-        void DelElement(int id);
+        List<DishViewModel> Read(DishBindingModel model);
+        void CreateOrUpdate(DishBindingModel model);
+        void Delete(DishBindingModel model);
 
     }
 }

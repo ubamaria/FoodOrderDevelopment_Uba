@@ -49,7 +49,7 @@
             this.справочникиToolStripMenuItem});
             this.menuStripFoodOrder.Location = new System.Drawing.Point(0, 0);
             this.menuStripFoodOrder.Name = "menuStripFoodOrder";
-            this.menuStripFoodOrder.Size = new System.Drawing.Size(1042, 30);
+            this.menuStripFoodOrder.Size = new System.Drawing.Size(1042, 28);
             this.menuStripFoodOrder.TabIndex = 0;
             this.menuStripFoodOrder.Text = "menuStripFoodOrder";
             // 
@@ -59,7 +59,7 @@
             this.блюдаToolStripMenuItem,
             this.наборыToolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
-            this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(117, 26);
+            this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(117, 24);
             this.справочникиToolStripMenuItem.Text = "Справочники";
             // 
             // блюдаToolStripMenuItem
@@ -87,7 +87,7 @@
             this.dataGridView.RowHeadersWidth = 51;
             this.dataGridView.RowTemplate.Height = 24;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.Size = new System.Drawing.Size(770, 338);
+            this.dataGridView.Size = new System.Drawing.Size(793, 338);
             this.dataGridView.TabIndex = 1;
             // 
             // buttonCreateOrder

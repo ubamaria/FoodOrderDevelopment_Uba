@@ -6,10 +6,10 @@ using System.Text;
 
 namespace FoodOrderBusinessLogic.Interfaces
 {
-    public interface ISetLogic
+    public interface IOrderLogic
     {
-        List<SetViewModel> Read(SetBindingModel model);
-        void CreateOrUpdate(SetBindingModel model);
-        void Delete(SetBindingModel model);
+        List<OrderViewModel> Read(OrderBindingModel model);
+        void CreateOrUpdate(OrderBindingModel model);
+        void Delete(OrderBindingModel model);
     }
 }

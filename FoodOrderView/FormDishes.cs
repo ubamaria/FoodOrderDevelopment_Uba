@@ -1,4 +1,5 @@
-﻿using FoodOrderBusinessLogic.Interfaces;
+﻿using FoodOrderBusinessLogic.BindingModels;
+using FoodOrderBusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,7 +34,7 @@ namespace FoodOrderView
         {
             try
             {
-                var list = logic.GetList();
+                var list = logic.Read(null);
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -81,7 +82,7 @@ namespace FoodOrderView
                    Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        logic.DelElement(id);
+                        logic.Delete(new DishBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {

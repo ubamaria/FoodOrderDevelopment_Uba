@@ -9,9 +9,9 @@ namespace FoodOrderBusinessLogic.BindingModels
         /// <summary>
         /// Изделие, изготавливаемое в магазине
         /// </summary>
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string SetName { get; set; }
         public decimal Price { get; set; }
-        public List<SetOfDishBindingModel> SetOfDishes { get; set; }
+        public Dictionary<int, (string, int)> SetOfDishes { get; set; }
     }
 }

@@ -14,6 +14,6 @@ namespace FoodOrderBusinessLogic.ViewModels
 
         [DisplayName("Цена")]
         public decimal Price { get; set; }
-        public List<SetOfDishViewModel> SetOfDishes { get; set; }
+        public Dictionary<int, (string, int)> SetOfDishes { get; set; }
     }
 }

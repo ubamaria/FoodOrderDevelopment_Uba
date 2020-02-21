@@ -102,7 +102,6 @@
             this.Controls.Add(this.labelName);
             this.Name = "FormSetOfDish";
             this.Text = "Блюдо из набора";
-            this.Load += new System.EventHandler(this.FormSetOfDish_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

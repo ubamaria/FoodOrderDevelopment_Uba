@@ -1,4 +1,5 @@
 ﻿using FoodOrderBusinessLogic.BindingModels;
+using FoodOrderBusinessLogic.BusinessLogics;
 using FoodOrderBusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,13 @@ namespace FoodOrderView
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
-        private readonly IMainLogic logic;
-        public FormMain(IMainLogic logic)
+        private readonly MainLogic logic;
+        private readonly IOrderLogic orderLogic;
+        public FormMain(MainLogic logic, IOrderLogic orderLogic)
         {
             InitializeComponent();
             this.logic = logic;
+            this.orderLogic = orderLogic;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -32,7 +35,7 @@ namespace FoodOrderView
         {
             try
             {
-                var list = logic.GetOrders();
+                var list = orderLogic.Read(null);
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -74,7 +77,7 @@ namespace FoodOrderView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    logic.TakeOrderInWork(new OrderBindingModel { Id = id });
+                    logic.TakeOrderInWork(new ChangeStatusBindingModel { OrderId = id });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -92,7 +95,7 @@ namespace FoodOrderView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    logic.FinishOrder(new OrderBindingModel { Id = id });
+                    logic.FinishOrder(new ChangeStatusBindingModel { OrderId = id });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -110,7 +113,7 @@ namespace FoodOrderView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    logic.PayOrder(new OrderBindingModel { Id = id });
+                    logic.PayOrder(new ChangeStatusBindingModel { OrderId = id });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -125,6 +128,5 @@ namespace FoodOrderView
         {
             LoadData();
         }
-
     }
 }

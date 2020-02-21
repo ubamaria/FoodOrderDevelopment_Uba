@@ -1,4 +1,5 @@
-﻿using FoodOrderBusinessLogic.Interfaces;
+﻿using FoodOrderBusinessLogic.BusinessLogics;
+using FoodOrderBusinessLogic.Interfaces;
 using FoodOrderListImplement.Implements;
 using System;
 using System.Windows.Forms;
@@ -26,9 +27,11 @@ namespace FoodOrderView
             var currentContainer = new UnityContainer();
             currentContainer.RegisterType<IDishLogic, DishLogic>(new
            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IOrderLogic, OrderLogic>(new
+HierarchicalLifetimeManager());
             currentContainer.RegisterType<ISetLogic, SetLogic>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IMainLogic, MainLogic>(new
+            currentContainer.RegisterType<MainLogic, MainLogic>(new
            HierarchicalLifetimeManager());
             return currentContainer;
         }

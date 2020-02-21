@@ -26,7 +26,7 @@ namespace FoodOrderView
             {
                 try
                 {
-                    var view = logic.GetElement(id.Value);
+                    var view = logic.Read(new DishBindingModel { Id = id })?[0];
                     if (view != null)
                     {
                         textBoxName.Text = view.DishName;
@@ -50,21 +50,11 @@ namespace FoodOrderView
             }
             try
             {
-                if (id.HasValue)
+                logic.CreateOrUpdate(new DishBindingModel
                 {
-                    logic.UpdElement(new DishBindingModel
-                    {
-                        Id = id.Value,
-                        DishName = textBoxName.Text
-                    });
-                }
-                else
-                {
-                    logic.AddElement(new DishBindingModel
-                    {
-                        DishName = textBoxName.Text
-                    });
-                }
+                    Id = id,
+                    DishName = textBoxName.Text
+                });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
