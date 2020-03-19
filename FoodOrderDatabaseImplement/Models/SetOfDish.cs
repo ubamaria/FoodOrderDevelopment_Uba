@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FoodOrderDatabaseImplement.Models;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace AbstractShopDatabaseImplement.Models
+namespace FoodOrderImplement.Models
 {
     public class SetOfDish
     {

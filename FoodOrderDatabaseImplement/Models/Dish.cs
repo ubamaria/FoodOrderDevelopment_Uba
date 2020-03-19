@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using FoodOrderImplement.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AbstractShopDatabaseImplement.Models
+namespace FoodOrderDatabaseImplement.Models
 {
     public class Dish
     {

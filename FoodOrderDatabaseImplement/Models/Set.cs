@@ -1,10 +1,9 @@
-﻿using System;
+﻿using FoodOrderDatabaseImplement.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
-namespace AbstractShopDatabaseImplement.Models
+namespace FoodOrderImplement.Models
 {
     public class Set
     {
@@ -15,8 +14,8 @@ namespace AbstractShopDatabaseImplement.Models
 
         [Required]
         public decimal Price { get; set; }
-        public virtual Dish Dish { get; set; }
 
+        public virtual List<SetOfDish> SetOfDishes { get; set; }
         public virtual List<Order> Orders { set; get; }
     }
 }

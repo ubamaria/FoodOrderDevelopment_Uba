@@ -1,8 +1,9 @@
 ﻿using FoodOrderBusinessLogic.Enums;
+using FoodOrderImplement.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace AbstractShopDatabaseImplement.Models
+namespace FoodOrderDatabaseImplement.Models
 {
     public class Order
     {

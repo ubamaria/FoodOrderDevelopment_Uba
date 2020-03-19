@@ -61,7 +61,7 @@ namespace FoodOrderFileImplement.Implements
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
-                    SetName = GetBouquetName(rec.SetId),
+                    SetName = GetSetName(rec.SetId),
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -71,7 +71,7 @@ namespace FoodOrderFileImplement.Implements
                 .ToList();
             }
 
-            private string GetBouquetName(int id)
+            private string GetSetName(int id)
             {
                 string name = "";
                 var set = source.Sets.FirstOrDefault(x => x.Id == id);

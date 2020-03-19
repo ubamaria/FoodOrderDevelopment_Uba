@@ -31,7 +31,7 @@ namespace FoodOrderView
 HierarchicalLifetimeManager());
             currentContainer.RegisterType<ISetLogic, SetLogic>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<MainLogic, MainLogic>(new
+            currentContainer.RegisterType<MainLogic>(new
            HierarchicalLifetimeManager());
             return currentContainer;
         }
