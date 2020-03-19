@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FoodOrderFileImplement.Models
+namespace FoodOrderDatabaseImplement.Models
 {
     public class Order
     {

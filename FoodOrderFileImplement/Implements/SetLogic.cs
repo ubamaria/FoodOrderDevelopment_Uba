@@ -1,13 +1,13 @@
 ﻿using FoodOrderBusinessLogic.BindingModels;
 using FoodOrderBusinessLogic.Interfaces;
 using FoodOrderBusinessLogic.ViewModels;
-using FoodOrderFileImplement.Models;
+using FoodOrderDatabaseImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FoodOrderFileImplement.Implements
+namespace FoodOrderDatabaseImplement.Implements
 {
     public class SetLogic : ISetLogic
     {

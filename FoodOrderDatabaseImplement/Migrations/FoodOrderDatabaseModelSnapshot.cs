@@ -74,9 +74,6 @@ namespace FoodOrderDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DishId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -85,8 +82,6 @@ namespace FoodOrderDatabaseImplement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DishId");
 
                     b.ToTable("Sets");
                 });
@@ -125,13 +120,6 @@ namespace FoodOrderDatabaseImplement.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FoodOrderImplement.Models.Set", b =>
-                {
-                    b.HasOne("FoodOrderDatabaseImplement.Models.Dish", "Dish")
-                        .WithMany()
-                        .HasForeignKey("DishId");
-                });
-
             modelBuilder.Entity("FoodOrderImplement.Models.SetOfDish", b =>
                 {
                     b.HasOne("FoodOrderDatabaseImplement.Models.Dish", "Dish")
@@ -141,7 +129,7 @@ namespace FoodOrderDatabaseImplement.Migrations
                         .IsRequired();
 
                     b.HasOne("FoodOrderImplement.Models.Set", "Set")
-                        .WithMany()
+                        .WithMany("SetOfDishes")
                         .HasForeignKey("SetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

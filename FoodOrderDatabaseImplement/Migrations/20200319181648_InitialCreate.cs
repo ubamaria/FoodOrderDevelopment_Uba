@@ -27,18 +27,11 @@ namespace FoodOrderDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SetName = table.Column<string>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false),
-                    DishId = table.Column<int>(nullable: true)
+                    Price = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Sets_Dishes_DishId",
-                        column: x => x.DishId,
-                        principalTable: "Dishes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,11 +99,6 @@ namespace FoodOrderDatabaseImplement.Migrations
                 name: "IX_SetOfDishes_SetId",
                 table: "SetOfDishes",
                 column: "SetId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sets_DishId",
-                table: "Sets",
-                column: "DishId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -122,10 +110,10 @@ namespace FoodOrderDatabaseImplement.Migrations
                 name: "SetOfDishes");
 
             migrationBuilder.DropTable(
-                name: "Sets");
+                name: "Dishes");
 
             migrationBuilder.DropTable(
-                name: "Dishes");
+                name: "Sets");
         }
     }
 }
