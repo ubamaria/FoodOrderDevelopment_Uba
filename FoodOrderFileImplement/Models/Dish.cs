@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FoodOrderDatabaseImplement.Models
+namespace FoodOrderFileImplement.Models
 {
     public class Dish
     {

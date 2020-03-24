@@ -1,12 +1,12 @@
 ﻿using FoodOrderBusinessLogic.Enums;
-using FoodOrderDatabaseImplement.Models;
+using FoodOrderFileImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace FoodOrderDatabaseImplement
+namespace FoodOrderFileImplement
 {
     public class FileDataListSingleton
     {

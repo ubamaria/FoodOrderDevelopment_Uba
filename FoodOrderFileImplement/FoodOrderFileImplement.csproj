@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FoodOrderBusinessLogic\FoodOrderBusinessLogic.csproj" />
+    <ProjectReference Include="..\FoodOrderListImplement\FoodOrderListImplement.csproj" />
   </ItemGroup>
 
 </Project>

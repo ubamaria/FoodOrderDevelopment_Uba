@@ -1,12 +1,12 @@
 ﻿using FoodOrderBusinessLogic.BindingModels;
 using FoodOrderBusinessLogic.Interfaces;
 using FoodOrderBusinessLogic.ViewModels;
-using FoodOrderDatabaseImplement.Models;
+using FoodOrderFileImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FoodOrderDatabaseImplement.Implements
+namespace FoodOrderFileImplement.Implements
 {
     public class DishLogic : IDishLogic
     {
