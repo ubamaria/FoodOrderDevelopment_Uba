@@ -5,7 +5,6 @@ using FoodOrderBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FoodOrderBusinessLogic.BusinessLogics
 {
@@ -20,10 +19,7 @@ IOrderLogic orderLLogic)
             this.setLogic = setLogic;
             this.dishLogic = dishLogic;
             this.orderLogic = orderLLogic;
-        }/// <summary>
-         /// Получение списка компонент с указанием, в каких изделиях используются
-         /// </summary>
-         /// <returns></returns>
+        }
         public List<ReportSetOfDishViewModel> GetSetOfDish()
         {
             var dishes = dishLogic.Read(null);

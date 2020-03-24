@@ -18,11 +18,10 @@ namespace FoodOrderView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly ReportLogic logic;
-
-        public FormReportSetOfDish()
+        public FormReportSetOfDish(ReportLogic logic)
         {
             InitializeComponent();
-            logic = logic;
+            this.logic = logic;
         }
 
         private void FormReportSetOfDish_Load(object sender, EventArgs e)
