@@ -1,6 +1,6 @@
 ﻿using FoodOrderBusinessLogic.BusinessLogics;
 using FoodOrderBusinessLogic.Interfaces;
-using FoodOrderDatabaseImplement.Implement;
+using FoodOrderDatabaseImplement.Implements;
 using System;
 using System.Windows.Forms;
 using Unity;

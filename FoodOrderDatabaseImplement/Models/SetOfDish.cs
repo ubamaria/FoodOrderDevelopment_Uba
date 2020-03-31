@@ -1,7 +1,6 @@
-﻿using FoodOrderDatabaseImplement.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace FoodOrderImplement.Models
+namespace FoodOrderDatabaseImplement.Models
 {
     public class SetOfDish
     {
