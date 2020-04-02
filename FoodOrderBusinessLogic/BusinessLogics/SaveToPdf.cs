@@ -19,13 +19,10 @@ namespace FoodOrderBusinessLogic.BusinessLogics
             paragraph.Format.SpaceAfter = "1cm";
             paragraph.Format.Alignment = ParagraphAlignment.Center;
             paragraph.Style = "NormalTitle";
-            paragraph = section.AddParagraph($"с {info.DateFrom.ToShortDateString()} по { info.DateTo.ToShortDateString()}");
- paragraph.Format.SpaceAfter = "1cm";
-            paragraph.Format.Alignment = ParagraphAlignment.Center;
             paragraph.Style = "Normal";
             var table = document.LastSection.AddTable();
-            List<string> columns = new List<string> { "3cm", "6cm", "3cm", "2cm", "3cm"
-};
+            List<string> columns = new List<string> { "6cm", "6cm", "6cm" };
+
             foreach (var elem in columns)
             {
                 table.AddColumn(elem);
@@ -33,19 +30,20 @@ namespace FoodOrderBusinessLogic.BusinessLogics
             CreateRow(new PdfRowParameters
             {
                 Table = table,
-                Texts = new List<string> { "Дата заказа", "Изделие", "Количество",
-"Сумма", "Статус" },
+                Texts = new List<string> { "Набор", "Блюдо", "Количество" },
                 Style = "NormalTitle",
                 ParagraphAlignment = ParagraphAlignment.Center
             });
-            foreach (var order in info.Orders)
+            foreach (var sd in info.SetOfDishes)
             {
                 CreateRow(new PdfRowParameters
                 {
                     Table = table,
-                    Texts = new List<string> { order.DateCreate.ToShortDateString(),
-order.SetName, order.Count.ToString(), order.Sum.ToString(), order.Status.ToString()
-},
+                    Texts = new List<string> {
+                        sd.SetName,
+                        sd.DishName,
+                        sd.Count.ToString()
+                    },
                     Style = "Normal",
                     ParagraphAlignment = ParagraphAlignment.Left
                 });
@@ -65,7 +63,8 @@ order.SetName, order.Count.ToString(), order.Sum.ToString(), order.Status.ToStri
         {
             Style style = document.Styles["Normal"];
             style.Font.Name = "Times New Roman";
-            style.Font.Size = 14; style = document.Styles.AddStyle("NormalTitle", "Normal");
+            style.Font.Size = 14; 
+            style = document.Styles.AddStyle("NormalTitle", "Normal");
             style.Font.Bold = true;
         }
         /// <summary>

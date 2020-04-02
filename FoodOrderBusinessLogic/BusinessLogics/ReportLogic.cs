@@ -14,11 +14,11 @@ namespace FoodOrderBusinessLogic.BusinessLogics
         private readonly ISetLogic setLogic;
         private readonly IOrderLogic orderLogic;
         public ReportLogic(ISetLogic setLogic, IDishLogic dishLogic,
-IOrderLogic orderLLogic)
+IOrderLogic orderLogic)
         {
             this.setLogic = setLogic;
             this.dishLogic = dishLogic;
-            this.orderLogic = orderLLogic;
+            this.orderLogic = orderLogic;
         }
         public List<ReportSetOfDishViewModel> GetSetOfDish()
         {
@@ -27,23 +27,19 @@ IOrderLogic orderLLogic)
             var list = new List<ReportSetOfDishViewModel>();
             foreach (var dish in dishes)
             {
-                var record = new ReportSetOfDishViewModel
-                {
-                    DishName = dish.DishName,
-                    Sets = new List<Tuple<string, int>>(),
-                    TotalCount = 0
-                };
                 foreach (var set in sets)
                 {
                     if (set.SetOfDishes.ContainsKey(dish.Id))
                     {
-                        record.Sets.Add(new Tuple<string, int>(set.SetName,
-                       set.SetOfDishes[dish.Id].Item2));
-                        record.TotalCount +=
-                       set.SetOfDishes[dish.Id].Item2;
+                        var record = new ReportSetOfDishViewModel
+                        {
+                            SetName = set.SetName,
+                            DishName = dish.DishName,
+                            Count = set.SetOfDishes[dish.Id].Item2
+                        };
+                        list.Add(record);
                     }
                 }
-                list.Add(record);
             }
             return list;
         }
@@ -73,41 +69,41 @@ IOrderLogic orderLLogic)
         /// Сохранение компонент в файл-Word
         /// </summary>
         /// <param name="model"></param>
-        public void SaveDishesToWordFile(ReportBindingModel model)
+        public void SaveSetsToWordFile(ReportBindingModel model)
         {
             SaveToWord.CreateDoc(new WordInfo
             {
                 FileName = model.FileName,
-                Title = "Список блюд",
-                Dishes = dishLogic.Read(null)
+                Title = "Список наборов",
+                Sets = setLogic.Read(null)
             });
         }
         /// <summary>
-        /// Сохранение компонент с указаеним продуктов в файл-Excel
+        /// Сохранение в файл-Excel
         /// </summary>
         /// <param name="model"></param>
-        public void SaveSetOfDishToExcelFile(ReportBindingModel model)
+        public void SaveOrdersToExcelFile(ReportBindingModel model)
         {
             SaveToExcel.CreateDoc(new ExcelInfo
             {
+                DateFrom = model.DateFrom.Value,
+                DateTo = model.DateTo.Value,
                 FileName = model.FileName,
-                Title = "Список блюд",
-                SetOfDishes = GetSetOfDish()
+                Title = "Список заказов",
+                Orders = GetOrders(model)
             });
         }
         /// <summary>
-        /// Сохранение заказов в файл-Pdf
+        /// Сохранение компонент с указаеним продуктов в файл-Pdf
         /// </summary>
         /// <param name="model"></param>
-        public void SaveOrdersToPdfFile(ReportBindingModel model)
+        public void SaveSetOfDishToPdfFile(ReportBindingModel model)
         {
             SaveToPdf.CreateDoc(new PdfInfo
             {
                 FileName = model.FileName,
-                Title = "Список заказов",
-                DateFrom = model.DateFrom.Value,
-                DateTo = model.DateTo.Value,
-                Orders = GetOrders(model)
+                Title = "Список блюд по наборам",
+                SetOfDishes = GetSetOfDish(),
             });
         }
     }

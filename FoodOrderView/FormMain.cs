@@ -131,23 +131,6 @@ namespace FoodOrderView
             LoadData();
         }
 
-        private void списокБлюдToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
-            {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    report.SaveDishesToWordFile(new ReportBindingModel
-                    {
-                        FileName =
-                   dialog.FileName
-                    });
-                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                   MessageBoxIcon.Information);
-                }
-            }
-        }
-
         private void блюдаПоНаборамToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormReportSetOfDish>();
@@ -158,6 +141,23 @@ namespace FoodOrderView
         {
             var form = Container.Resolve<FormReportOrders>();
             form.ShowDialog();
+        }
+
+        private void списокНаборовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    report.SaveSetsToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                   MessageBoxIcon.Information);
+                }
+            }
         }
     }
 }

@@ -30,11 +30,15 @@
         {
             this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
-            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonMake = new System.Windows.Forms.Button();
-            this.buttonToPdf = new System.Windows.Forms.Button();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.buttonSaveToExcel = new System.Windows.Forms.Button();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // dateTimePickerFrom
@@ -50,15 +54,6 @@
             this.dateTimePickerTo.Name = "dateTimePickerTo";
             this.dateTimePickerTo.Size = new System.Drawing.Size(195, 22);
             this.dateTimePickerTo.TabIndex = 1;
-            // 
-            // reportViewer
-            // 
-            this.reportViewer.LocalReport.ReportEmbeddedResource = "FoodOrderView.Report.rdlc";
-            this.reportViewer.Location = new System.Drawing.Point(-1, 42);
-            this.reportViewer.Name = "reportViewer";
-            this.reportViewer.ServerReport.BearerToken = null;
-            this.reportViewer.Size = new System.Drawing.Size(800, 408);
-            this.reportViewer.TabIndex = 2;
             // 
             // label1
             // 
@@ -88,30 +83,70 @@
             this.buttonMake.UseVisualStyleBackColor = true;
             this.buttonMake.Click += new System.EventHandler(this.buttonMake_Click);
             // 
-            // buttonToPdf
+            // dataGridView
             // 
-            this.buttonToPdf.Location = new System.Drawing.Point(705, 7);
-            this.buttonToPdf.Name = "buttonToPdf";
-            this.buttonToPdf.Size = new System.Drawing.Size(82, 24);
-            this.buttonToPdf.TabIndex = 6;
-            this.buttonToPdf.Text = "в Pdf";
-            this.buttonToPdf.UseVisualStyleBackColor = true;
-            this.buttonToPdf.Click += new System.EventHandler(this.buttonToPdf_Click);
+            this.dataGridView.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3});
+            this.dataGridView.GridColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView.Location = new System.Drawing.Point(1, 42);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.RowHeadersVisible = false;
+            this.dataGridView.RowHeadersWidth = 51;
+            this.dataGridView.RowTemplate.Height = 24;
+            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView.Size = new System.Drawing.Size(799, 409);
+            this.dataGridView.TabIndex = 6;
+            // 
+            // buttonSaveToExcel
+            // 
+            this.buttonSaveToExcel.Location = new System.Drawing.Point(690, 5);
+            this.buttonSaveToExcel.Name = "buttonSaveToExcel";
+            this.buttonSaveToExcel.Size = new System.Drawing.Size(97, 27);
+            this.buttonSaveToExcel.TabIndex = 7;
+            this.buttonSaveToExcel.Text = "в Excel";
+            this.buttonSaveToExcel.UseVisualStyleBackColor = true;
+            this.buttonSaveToExcel.Click += new System.EventHandler(this.buttonSaveToExcel_Click);
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.HeaderText = "Дата";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column2.HeaderText = "Набор";
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column3.HeaderText = "Цена";
+            this.Column3.MinimumWidth = 6;
+            this.Column3.Name = "Column3";
             // 
             // FormReportOrders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.buttonToPdf);
+            this.Controls.Add(this.buttonSaveToExcel);
+            this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.buttonMake);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.reportViewer);
             this.Controls.Add(this.dateTimePickerTo);
             this.Controls.Add(this.dateTimePickerFrom);
             this.Name = "FormReportOrders";
-            this.Text = "Заказы клиентов";
+            this.Text = "Отчет по заказам клиентов";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -121,10 +156,13 @@
 
         private System.Windows.Forms.DateTimePicker dateTimePickerFrom;
         private System.Windows.Forms.DateTimePicker dateTimePickerTo;
-        private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonMake;
-        private System.Windows.Forms.Button buttonToPdf;
+        private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.Button buttonSaveToExcel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
     }
 }

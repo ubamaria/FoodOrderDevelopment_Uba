@@ -6,8 +6,8 @@ namespace FoodOrderBusinessLogic.ViewModels
 {
     public class ReportSetOfDishViewModel
     {
+        public string SetName { get; set; }
         public string DishName { get; set; }
-        public int TotalCount { get; set; }
-        public List<Tuple<string, int>> Sets { get; set; }
+        public int Count { get; set; }
     }
 }

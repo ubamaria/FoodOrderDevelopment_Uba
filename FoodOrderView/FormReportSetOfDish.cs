@@ -1,13 +1,7 @@
 ﻿using FoodOrderBusinessLogic.BindingModels;
 using FoodOrderBusinessLogic.BusinessLogics;
+using Microsoft.Reporting.WinForms;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Unity;
 
@@ -24,28 +18,14 @@ namespace FoodOrderView
             this.logic = logic;
         }
 
-        private void FormReportSetOfDish_Load(object sender, EventArgs e)
+        private void buttonMake_Click(object sender, EventArgs e)
         {
             try
             {
-                var dict = logic.GetSetOfDish();
-                if (dict != null)
-                {
-                    dataGridView.Rows.Clear();
-                    foreach (var elem in dict)
-                    {
-                        dataGridView.Rows.Add(new object[] { elem.DishName, "", ""
-});
-                        foreach (var listElem in elem.Sets)
-                        {
-                            dataGridView.Rows.Add(new object[] { "", listElem.Item1,
-listElem.Item2 });
-                        }
-                        dataGridView.Rows.Add(new object[] { "Итого", "", elem.TotalCount
-});
-                        dataGridView.Rows.Add(new object[] { });
-                    }
-                }
+                var dataSource = logic.GetSetOfDish();
+                ReportDataSource source = new ReportDataSource("DataSetOfDish", dataSource);
+                reportViewer.LocalReport.DataSources.Add(source);
+                reportViewer.RefreshReport();
             }
             catch (Exception ex)
             {
@@ -54,25 +34,23 @@ listElem.Item2 });
             }
         }
 
-        private void buttonSaveToExcel_Click(object sender, EventArgs e)
+        private void buttonSaveToPdf_Click(object sender, EventArgs e)
         {
-            using (var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" })
+            using (var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" })
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
-                        logic.SaveSetOfDishToExcelFile(new ReportBindingModel
+                        logic.SaveSetOfDishToPdfFile(new ReportBindingModel
                         {
-                            FileName = dialog.FileName
+                            FileName = dialog.FileName,
                         });
-                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                       MessageBoxIcon.Error);
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

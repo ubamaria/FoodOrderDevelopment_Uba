@@ -28,84 +28,66 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonSaveToExcel = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            this.components = new System.ComponentModel.Container();
+            this.ReportSetOfDishViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonSaveToPdf = new System.Windows.Forms.Button();
+            this.buttonMake = new System.Windows.Forms.Button();
+            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
+            ((System.ComponentModel.ISupportInitialize)(this.ReportSetOfDishViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView
+            // ReportSetOfDishViewModelBindingSource
             // 
-            this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3});
-            this.dataGridView.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dataGridView.Location = new System.Drawing.Point(1, 64);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.RowHeadersVisible = false;
-            this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.RowTemplate.Height = 24;
-            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.Size = new System.Drawing.Size(466, 479);
-            this.dataGridView.TabIndex = 0;
+            this.ReportSetOfDishViewModelBindingSource.DataSource = typeof(FoodOrderBusinessLogic.ViewModels.ReportSetOfDishViewModel);
             // 
-            // Column1
+            // buttonSaveToPdf
             // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column1.HeaderText = "Блюдо";
-            this.Column1.MinimumWidth = 6;
-            this.Column1.Name = "Column1";
+            this.buttonSaveToPdf.Location = new System.Drawing.Point(230, 12);
+            this.buttonSaveToPdf.Name = "buttonSaveToPdf";
+            this.buttonSaveToPdf.Size = new System.Drawing.Size(225, 28);
+            this.buttonSaveToPdf.TabIndex = 1;
+            this.buttonSaveToPdf.Text = "в Pdf";
+            this.buttonSaveToPdf.UseVisualStyleBackColor = true;
+            this.buttonSaveToPdf.Click += new System.EventHandler(this.buttonSaveToPdf_Click);
             // 
-            // Column2
+            // buttonMake
             // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column2.HeaderText = "Набор";
-            this.Column2.MinimumWidth = 6;
-            this.Column2.Name = "Column2";
+            this.buttonMake.Location = new System.Drawing.Point(15, 13);
+            this.buttonMake.Name = "buttonMake";
+            this.buttonMake.Size = new System.Drawing.Size(192, 27);
+            this.buttonMake.TabIndex = 2;
+            this.buttonMake.Text = "Сформировать";
+            this.buttonMake.UseVisualStyleBackColor = true;
+            this.buttonMake.Click += new System.EventHandler(this.buttonMake_Click);
             // 
-            // Column3
+            // reportViewer
             // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.HeaderText = "Количество";
-            this.Column3.MinimumWidth = 6;
-            this.Column3.Name = "Column3";
-            // 
-            // buttonSaveToExcel
-            // 
-            this.buttonSaveToExcel.Location = new System.Drawing.Point(12, 22);
-            this.buttonSaveToExcel.Name = "buttonSaveToExcel";
-            this.buttonSaveToExcel.Size = new System.Drawing.Size(225, 28);
-            this.buttonSaveToExcel.TabIndex = 1;
-            this.buttonSaveToExcel.Text = "Сохранить в Excel";
-            this.buttonSaveToExcel.UseVisualStyleBackColor = true;
-            this.buttonSaveToExcel.Click += new System.EventHandler(this.buttonSaveToExcel_Click);
+            this.reportViewer.LocalReport.ReportEmbeddedResource = "FoodOrderView.ReportSetOfDish.rdlc";
+            this.reportViewer.Location = new System.Drawing.Point(0, 51);
+            this.reportViewer.Name = "reportViewer";
+            this.reportViewer.ServerReport.BearerToken = null;
+            this.reportViewer.Size = new System.Drawing.Size(861, 522);
+            this.reportViewer.TabIndex = 3;
             // 
             // FormReportSetOfDish
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(467, 543);
-            this.Controls.Add(this.buttonSaveToExcel);
-            this.Controls.Add(this.dataGridView);
+            this.ClientSize = new System.Drawing.Size(859, 571);
+            this.Controls.Add(this.reportViewer);
+            this.Controls.Add(this.buttonMake);
+            this.Controls.Add(this.buttonSaveToPdf);
             this.Name = "FormReportSetOfDish";
-            this.Text = "Блюда по наборам";
-            this.Load += new System.EventHandler(this.FormReportSetOfDish_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            this.Text = "Отчет по блюдам и наборам";
+            ((System.ComponentModel.ISupportInitialize)(this.ReportSetOfDishViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.Button buttonSaveToExcel;
+        private System.Windows.Forms.Button buttonSaveToPdf;
+        private System.Windows.Forms.Button buttonMake;
+        private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
+        private System.Windows.Forms.BindingSource ReportSetOfDishViewModelBindingSource;
     }
 }
