@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FoodOrderDatabaseImplement.Implements
+namespace FoodOrderFileImplement.Implements
 {
     public class DishLogic : IDishLogic
     {

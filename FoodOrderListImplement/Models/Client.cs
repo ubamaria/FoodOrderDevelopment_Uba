@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FoodOrderFileImplement.Models
+namespace FoodOrderListImplement.Models
 {
-    public class Dish
+    public class Client
     {
         public int Id { get; set; }
-        public string DishName { get; set; }
+        public string ClientFIO { get; set; }
     }
 }

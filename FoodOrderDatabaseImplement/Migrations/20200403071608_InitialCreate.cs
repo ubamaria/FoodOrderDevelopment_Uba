@@ -8,6 +8,19 @@ namespace FoodOrderDatabaseImplement.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClientFIO = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Dishes",
                 columns: table => new
                 {
@@ -41,6 +54,7 @@ namespace FoodOrderDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SetId = table.Column<int>(nullable: false),
+                    ClientId = table.Column<int>(nullable: false),
                     Count = table.Column<int>(nullable: false),
                     Sum = table.Column<decimal>(nullable: false),
                     Status = table.Column<int>(nullable: false),
@@ -103,6 +117,9 @@ namespace FoodOrderDatabaseImplement.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Clients");
+
             migrationBuilder.DropTable(
                 name: "Orders");
 

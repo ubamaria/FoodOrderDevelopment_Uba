@@ -4,10 +4,9 @@ using System.Text;
 
 namespace FoodOrderFileImplement.Models
 {
-    public class Set
+    public class Client
     {
         public int Id { get; set; }
-        public string SetName { get; set; }
-        public decimal Price { get; set; }
+        public string ClientFIO { get; set; }
     }
 }
