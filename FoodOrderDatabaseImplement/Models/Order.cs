@@ -18,7 +18,7 @@ namespace FoodOrderDatabaseImplement.Models
         [Required]
         public DateTime DateCreate { get; set; }
         public DateTime? DateImplement { get; set; }
-
         public virtual Set Set { get; set; }
+        public int ClientId { get; set; }
     }
 }
