@@ -33,7 +33,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                 {
                     docBody.AppendChild(CreateParagraph(new WordParagraph
                     {
-                        Texts = new List<string> { set.SetName, ":" + set.Price.ToString() },
+                        Texts = new List<string> { set.SetName, ": " + set.Price.ToString() },
                         TextProperties = new WordParagraphProperties
                         {
                             Size = "24",
