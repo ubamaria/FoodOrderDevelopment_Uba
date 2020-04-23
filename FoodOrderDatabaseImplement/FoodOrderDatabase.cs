@@ -1,5 +1,4 @@
 ﻿using FoodOrderDatabaseImplement.Models;
-using FoodOrderImplement.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodOrderDatabaseImplement

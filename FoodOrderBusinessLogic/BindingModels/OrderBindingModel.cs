@@ -12,11 +12,11 @@ namespace FoodOrderBusinessLogic.BindingModels
     {
         [DataMember]
         public int? Id { get; set; }
-        [DataMember] 
+        [DataMember]
         public int ClientId { get; set; }
         [DataMember]
         public int SetId { get; set; }
-        [DataMember] 
+        [DataMember]
         public string ClientFIO { get; set; }
         [DataMember]
         public int Count { get; set; }

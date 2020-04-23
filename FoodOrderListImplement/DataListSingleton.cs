@@ -10,6 +10,7 @@ namespace FoodOrderListImplement
         public List<Order> Orders { get; set; }
         public List<Set> Sets { get; set; }
         public List<SetOfDish> SetOfDishes { get; set; }
+        //public List<Client> Clients { get; set; }
         private DataListSingleton()
         {
             Dishes = new List<Dish>();

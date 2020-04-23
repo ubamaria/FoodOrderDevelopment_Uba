@@ -1,5 +1,4 @@
-﻿using FoodOrderImplement.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,6 +10,7 @@ namespace FoodOrderDatabaseImplement.Models
 
         [Required] public string DishName { get; set; }
 
-        [ForeignKey("DishId")] public virtual List<SetOfDish> SetOfDishes { get; set; }
+        [ForeignKey("DishId")] 
+        public virtual List<SetOfDish> SetOfDishes { get; set; }
     }
 }

@@ -61,23 +61,42 @@ model.Id);
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
-            using (var context = new FoodOrderDatabase())
+            //using (var context = new FoodOrderDatabase())
+            //{
+            //    return context.Orders.Where(rec => model == null || (rec.Id == model.Id && model.Id.HasValue)
+            //    || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo))
+            //    .Select(rec => new OrderViewModel
+            //    {
+            //        Id = rec.Id,
+            //        ClientId = rec.ClientId,
+            //        SetId = rec.SetId,
+            //        ClientFIO = rec.ClientFIO,
+            //        SetName = rec.Set.SetName,
+            //        Count = rec.Count,
+            //        Sum = rec.Sum,
+            //        Status = rec.Status,
+            //        DateCreate = rec.DateCreate,
+            //        DateImplement = rec.DateImplement
+            //    })
+            //.ToList();
+            //}
+            return source.Orders.Where(rec => model == null || (rec.Id == model.Id && model.Id.HasValue) || 
+            (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) || 
+            (model.ClientId.HasValue && rec.ClientId == model.ClientId))
+            .Select(rec => new OrderViewModel
             {
-                return context.Orders.Where(rec => model == null || (rec.Id == model.Id && model.Id.HasValue)
-                || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo))
-                .Select(rec => new OrderViewModel
-                {
                 Id = rec.Id,
                 SetId = rec.SetId,
-                SetName = rec.Set.SetName,
+                ClientId = rec.ClientId,
+                DateCreate = rec.DateCreate,
+                DateImplement = rec.DateImplement,
+                Status = rec.Status,
                 Count = rec.Count,
                 Sum = rec.Sum,
-                Status = rec.Status,
-                DateCreate = rec.DateCreate,
-                DateImplement = rec.DateImplement
+                ClientFIO = source.Clients.FirstOrDefault(recC => recC.Id == rec.ClientId)?.ClientFIO,
+                SetName = source.Products.FirstOrDefault(recP => recP.Id == rec.ProductId)?.ProductName,
             })
             .ToList();
-            }
         }
     }
 }
