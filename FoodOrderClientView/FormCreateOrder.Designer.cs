@@ -36,7 +36,7 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
             //
-            // labelSnack
+            // labelSet
             //
             this.labelSet.AutoSize = true;
             this.labelSet.Location = new System.Drawing.Point(12, 9);
@@ -45,13 +45,13 @@
             this.labelSet.TabIndex = 0;
             this.labelSet.Text = "Набор:";
             //
-            // comboBoxSnack
+            // comboBoxSet
             // 
             this.comboBoxSet.DropDownStyle =
            System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSet.FormattingEnabled = true;
             this.comboBoxSet.Location = new System.Drawing.Point(87, 6);
-            this.comboBoxSet.Name = "comboBoxSnack";
+            this.comboBoxSet.Name = "comboBoxSet";
             this.comboBoxSet.Size = new System.Drawing.Size(217, 21);
             this.comboBoxSet.TabIndex = 1;
             this.comboBoxSet.SelectedIndexChanged += new
