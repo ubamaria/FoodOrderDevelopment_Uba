@@ -30,6 +30,14 @@ namespace FoodOrderDatabaseImplement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
@@ -80,6 +88,8 @@ namespace FoodOrderDatabaseImplement.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("SetId");
 
@@ -132,6 +142,12 @@ namespace FoodOrderDatabaseImplement.Migrations
 
             modelBuilder.Entity("FoodOrderDatabaseImplement.Models.Order", b =>
                 {
+                    b.HasOne("FoodOrderDatabaseImplement.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FoodOrderDatabaseImplement.Models.Set", "Set")
                         .WithMany("Orders")
                         .HasForeignKey("SetId")
