@@ -14,5 +14,11 @@ namespace FoodOrderBusinessLogic.ViewModels
         [DataMember]
         [DisplayName("ФИО клиента")]
         public string ClientFIO { get; set; }
+        [DataMember]
+        [DisplayName("Логин")]
+        public string Email { get; set; }
+        [DataMember]
+        [DisplayName("Пароль")]
+        public string Password { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FoodOrderDatabaseImplement.Implement
+namespace FoodOrderDatabaseImplement.Implements
 {
     public class OrderLogic : IOrderLogic
     {
@@ -33,6 +33,7 @@ namespace FoodOrderDatabaseImplement.Implement
                         context.Orders.Add(element);
                     }
                     element.SetId = model.SetId == 0 ? element.SetId : model.SetId;
+                    element.ClientId = model.ClientId == null ? element.ClientId : (int)model.ClientId;
                     element.Count = model.Count;
                     element.Sum = model.Sum;
                     element.Status = model.Status;
@@ -61,42 +62,28 @@ model.Id);
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
-            //using (var context = new FoodOrderDatabase())
-            //{
-            //    return context.Orders.Where(rec => model == null || (rec.Id == model.Id && model.Id.HasValue)
-            //    || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo))
-            //    .Select(rec => new OrderViewModel
-            //    {
-            //        Id = rec.Id,
-            //        ClientId = rec.ClientId,
-            //        SetId = rec.SetId,
-            //        ClientFIO = rec.ClientFIO,
-            //        SetName = rec.Set.SetName,
-            //        Count = rec.Count,
-            //        Sum = rec.Sum,
-            //        Status = rec.Status,
-            //        DateCreate = rec.DateCreate,
-            //        DateImplement = rec.DateImplement
-            //    })
-            //.ToList();
-            //}
-            return source.Orders.Where(rec => model == null || (rec.Id == model.Id && model.Id.HasValue) || 
-            (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) || 
-            (model.ClientId.HasValue && rec.ClientId == model.ClientId))
-            .Select(rec => new OrderViewModel
+            using (var context = new FoodOrderDatabase())
             {
-                Id = rec.Id,
-                SetId = rec.SetId,
-                ClientId = rec.ClientId,
-                DateCreate = rec.DateCreate,
-                DateImplement = rec.DateImplement,
-                Status = rec.Status,
-                Count = rec.Count,
-                Sum = rec.Sum,
-                ClientFIO = source.Clients.FirstOrDefault(recC => recC.Id == rec.ClientId)?.ClientFIO,
-                SetName = source.Products.FirstOrDefault(recP => recP.Id == rec.ProductId)?.ProductName,
-            })
-            .ToList();
+                return context.Orders.Where(rec => model == null || (rec.Id == model.Id && model.Id.HasValue)
+                || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) ||
+                (model.ClientId.HasValue && rec.ClientId == model.ClientId))
+                  .Include(rec => rec.Set)
+                .Include(rec => rec.Client)
+                .Select(rec => new OrderViewModel
+                {
+                    Id = rec.Id,
+                    ClientId = rec.ClientId,
+                    SetId = rec.SetId,
+                    Count = rec.Count,
+                    Sum = rec.Sum,
+                    Status = rec.Status,
+                    DateCreate = rec.DateCreate,
+                    DateImplement = rec.DateImplement,
+                    SetName = rec.Set.SetName,
+                    ClientFIO = rec.Client.ClientFIO
+                })
+                .ToList();
+            }
         }
     }
 }

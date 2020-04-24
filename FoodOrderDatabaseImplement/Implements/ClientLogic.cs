@@ -9,22 +9,20 @@ using System.Text;
 
 namespace FoodOrderDatabaseImplement.Implements
 {
-    public class DishLogic : IDishLogic
+    public class ClientLogic : IClientLogic
     {
-        public void CreateOrUpdate(DishBindingModel model)
+        public void CreateOrUpdate(ClientBindingModel model)
         {
             using (var context = new FoodOrderDatabase())
             {
-                Dish element = context.Dishes.FirstOrDefault(rec =>
-               rec.DishName == model.DishName && rec.Id != model.Id);
+                Client element = context.Clients.FirstOrDefault(rec => rec.Email == model.Email && rec.Id != model.Id);
                 if (element != null)
                 {
-                    throw new Exception("Уже есть блюдо с таким названием");
+                    throw new Exception("Уже есть клиент с таким логином");
                 }
                 if (model.Id.HasValue)
                 {
-                    element = context.Dishes.FirstOrDefault(rec => rec.Id ==
-                   model.Id);
+                    element = context.Clients.FirstOrDefault(rec => rec.Id == model.Id);
                     if (element == null)
                     {
                         throw new Exception("Элемент не найден");
@@ -32,22 +30,24 @@ namespace FoodOrderDatabaseImplement.Implements
                 }
                 else
                 {
-                    element = new Dish();
-                    context.Dishes.Add(element);
+                    element = new Client();
+                    context.Clients.Add(element);
                 }
-                element.DishName = model.DishName;
+                element.Email = model.Email;
+                element.ClientFIO = model.ClientFIO;
+                element.Password = model.Password;
                 context.SaveChanges();
             }
         }
-        public void Delete(DishBindingModel model)
+        public void Delete(ClientBindingModel model)
         {
             using (var context = new FoodOrderDatabase())
             {
-                Dish element = context.Dishes.FirstOrDefault(rec => rec.Id ==
-               model.Id);
+                Client element = context.Clients.FirstOrDefault(rec => rec.Id == model.Id);
+
                 if (element != null)
                 {
-                    context.Dishes.Remove(element);
+                    context.Clients.Remove(element);
                     context.SaveChanges();
                 }
                 else
@@ -56,20 +56,25 @@ namespace FoodOrderDatabaseImplement.Implements
                 }
             }
         }
-        public List<DishViewModel> Read(DishBindingModel model)
+        public List<ClientViewModel> Read(ClientBindingModel model)
         {
             using (var context = new FoodOrderDatabase())
             {
-                return context.Dishes
-                .Where(rec => model == null || rec.Id == model.Id)
-                .Select(rec => new DishViewModel
+                return context.Clients
+                .Where(
+                    rec => model == null
+                    || rec.Id == model.Id
+                    || rec.Email == model.Email && rec.Password == model.Password
+                )
+                .Select(rec => new ClientViewModel
                 {
                     Id = rec.Id,
-                    DishName = rec.DishName
+                    ClientFIO = rec.ClientFIO,
+                    Email = rec.Email,
+                    Password = rec.Password
                 })
                 .ToList();
             }
         }
-
     }
 }

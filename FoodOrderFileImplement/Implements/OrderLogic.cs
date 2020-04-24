@@ -60,8 +60,6 @@ namespace FoodOrderFileImplement.Implements
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
-                    ClientId = rec.ClientId,
-                    //ClientFIO = rec.ClientFIO,
                     SetName = GetSetName(rec.SetId),
                     Count = rec.Count,
                     Sum = rec.Sum,

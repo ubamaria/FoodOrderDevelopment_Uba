@@ -19,6 +19,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 SetId = model.SetId,
+                ClientId = model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
                 DateCreate = DateTime.Now,
@@ -42,6 +43,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 SetId = order.SetId,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -67,6 +69,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 SetId = order.SetId,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -92,6 +95,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 SetId = order.SetId,
                 Count = order.Count,
                 Sum = order.Sum,

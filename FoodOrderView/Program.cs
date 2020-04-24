@@ -1,6 +1,6 @@
 ﻿using FoodOrderBusinessLogic.BusinessLogics;
 using FoodOrderBusinessLogic.Interfaces;
-using FoodOrderDatabaseImplement.Implement;
+using FoodOrderDatabaseImplement.Implements;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -30,6 +30,8 @@ namespace FoodOrderView
             currentContainer.RegisterType<IOrderLogic, OrderLogic>(new
 HierarchicalLifetimeManager());
             currentContainer.RegisterType<ISetLogic, SetLogic>(new
+           HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IClientLogic, ClientLogic>(new
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<MainLogic>(new
            HierarchicalLifetimeManager());

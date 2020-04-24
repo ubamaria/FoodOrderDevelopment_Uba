@@ -8,8 +8,11 @@ namespace FoodOrderDatabaseImplement.Models
     public class Client
     {
         public int Id { get; set; }
-
-        [Required] 
+        [Required]
         public string ClientFIO { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string Password { get; set; }
     }
 }

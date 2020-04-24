@@ -1,10 +1,15 @@
-﻿using System;
+﻿using FoodOrderBusinessLogic.BindingModels;
+using FoodOrderBusinessLogic.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace FoodOrderBusinessLogic.Interfaces
 {
-    public class IClientLogic
+    public interface IClientLogic
     {
+        List<ClientViewModel> Read(ClientBindingModel model);
+        void CreateOrUpdate(ClientBindingModel model);
+        void Delete(ClientBindingModel model);
     }
 }

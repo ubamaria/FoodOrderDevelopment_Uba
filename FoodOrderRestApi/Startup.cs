@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FoodOrderBusinessLogic.BusinessLogics;
+using FoodOrderBusinessLogic.Interfaces;
+using FoodOrderDatabaseImplement.Implements;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +28,10 @@ namespace FoodOrderRestApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IClientLogic, ClientLogic>();
+            services.AddTransient<IOrderLogic, OrderLogic>();
+            services.AddTransient<ISetLogic, SetLogic>();
+            services.AddTransient<MainLogic>();
             services.AddControllers();
         }
 
