@@ -1,4 +1,5 @@
 ﻿using FoodOrderBusinessLogic.BindingModels;
+using FoodOrderBusinessLogic.Enums;
 using FoodOrderBusinessLogic.Interfaces;
 using FoodOrderBusinessLogic.ViewModels;
 using FoodOrderDatabaseImplement.Models;
@@ -34,6 +35,7 @@ namespace FoodOrderDatabaseImplement.Implements
                     }
                     element.SetId = model.SetId == 0 ? element.SetId : model.SetId;
                     element.ClientId = model.ClientId == null ? element.ClientId : (int)model.ClientId;
+                    element.ImplementerId = model.ImplementerId;
                     element.Count = model.Count;
                     element.Sum = model.Sum;
                     element.Status = model.Status;
@@ -64,15 +66,21 @@ model.Id);
         {
             using (var context = new FoodOrderDatabase())
             {
-                return context.Orders.Where(rec => model == null || (rec.Id == model.Id && model.Id.HasValue)
-                || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) ||
-                (model.ClientId.HasValue && rec.ClientId == model.ClientId))
-                  .Include(rec => rec.Set)
+                return context.Orders.Where(rec => model == null
+                    || rec.Id == model.Id && model.Id.HasValue
+                    || model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo
+                    || model.ClientId.HasValue && rec.ClientId == model.ClientId
+                    || model.FreeOrders.HasValue && model.FreeOrders.Value && !rec.ImplementerId.HasValue
+                    || model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.Выполняется
+                )
+                .Include(rec => rec.Set)
                 .Include(rec => rec.Client)
+                .Include(rec => rec.Implementer)
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
                     ClientId = rec.ClientId,
+                    ImplementerId = rec.ImplementerId,
                     SetId = rec.SetId,
                     Count = rec.Count,
                     Sum = rec.Sum,
@@ -80,7 +88,8 @@ model.Id);
                     DateCreate = rec.DateCreate,
                     DateImplement = rec.DateImplement,
                     SetName = rec.Set.SetName,
-                    ClientFIO = rec.Client.ClientFIO
+                    ClientFIO = rec.Client.ClientFIO,
+                    ImplementerFIO = rec.ImplementerId.HasValue ? rec.Implementer.ImplementerFIO : string.Empty
                 })
                 .ToList();
             }

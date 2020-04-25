@@ -15,6 +15,7 @@ namespace FoodOrderFileImplement
         private readonly string OrderFileName = "Order.xml";
         private readonly string SetFileName = "Set.xml";
         private readonly string SetOfDishFileName = "SetOfDish.xml";
+
         public List<Dish> Dishes { get; set; }
         public List<Order> Orders { get; set; }
         public List<Set> Sets { get; set; }
@@ -192,6 +193,5 @@ namespace FoodOrderFileImplement
                 xDocument.Save(SetOfDishFileName);
             }
         }
-
     }
 }
