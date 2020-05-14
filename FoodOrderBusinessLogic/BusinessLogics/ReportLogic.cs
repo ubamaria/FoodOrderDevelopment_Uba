@@ -22,6 +22,7 @@ IOrderLogic orderLogic)
         }
         public List<ReportSetOfDishViewModel> GetSetOfDish()
         {
+
             var Sets = setLogic.Read(null);
             var list = new List<ReportSetOfDishViewModel>();
             foreach (var set in Sets)
@@ -47,6 +48,7 @@ IOrderLogic orderLogic)
         public List<IGrouping<DateTime, OrderViewModel>> GetOrders(ReportBindingModel model)
         {
             var list = orderLogic
+
              .Read(new OrderBindingModel
              {
                  DateFrom = model.DateFrom,
