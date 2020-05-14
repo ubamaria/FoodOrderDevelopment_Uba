@@ -22,23 +22,20 @@ IOrderLogic orderLogic)
         }
         public List<ReportSetOfDishViewModel> GetSetOfDish()
         {
-            var dishes = dishLogic.Read(null);
             var sets = setLogic.Read(null);
             var list = new List<ReportSetOfDishViewModel>();
-            foreach (var dish in dishes)
+            foreach (var set in sets)
             {
-                foreach (var set in sets)
+                foreach (var ds in set.SetOfDishes)
                 {
-                    if (set.SetOfDishes.ContainsKey(dish.Id))
-                    {
+                   
                         var record = new ReportSetOfDishViewModel
                         {
                             SetName = set.SetName,
-                            DishName = dish.DishName,
-                            Count = set.SetOfDishes[dish.Id].Item2
+                            DishName = ds.Value.Item1,
+                            Count = ds.Value.Item2
                         };
                         list.Add(record);
-                    }
                 }
             }
             return list;
@@ -48,22 +45,19 @@ IOrderLogic orderLogic)
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public List<ReportOrdersViewModel> GetOrders(ReportBindingModel model)
+        public List<IGrouping<DateTime, OrderViewModel>> GetOrders(ReportBindingModel model)
         {
-            return orderLogic.Read(new OrderBindingModel
+            var list = orderLogic
+            .Read(new OrderBindingModel
             {
                 DateFrom = model.DateFrom,
                 DateTo = model.DateTo
             })
-            .Select(x => new ReportOrdersViewModel
-            {
-                DateCreate = x.DateCreate,
-                SetName = x.SetName,
-                Count = x.Count,
-                Sum = x.Sum,
-                Status = x.Status
-            })
-           .ToList();
+            .GroupBy(rec => rec.DateCreate.Date)
+            .OrderBy(recG => recG.Key)
+            .ToList();
+
+            return list;
         }
         /// <summary>
         /// Сохранение компонент в файл-Word
@@ -86,8 +80,6 @@ IOrderLogic orderLogic)
         {
             SaveToExcel.CreateDoc(new ExcelInfo
             {
-                DateFrom = model.DateFrom.Value,
-                DateTo = model.DateTo.Value,
                 FileName = model.FileName,
                 Title = "Список заказов",
                 Orders = GetOrders(model)

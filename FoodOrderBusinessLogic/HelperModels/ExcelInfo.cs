@@ -1,6 +1,7 @@
 ﻿using FoodOrderBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FoodOrderBusinessLogic.HelperModels
 {
@@ -8,8 +9,6 @@ namespace FoodOrderBusinessLogic.HelperModels
     {
         public string FileName { get; set; }
         public string Title { get; set; }
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
-        public List<ReportOrdersViewModel> Orders { get; set; }
+        public List<IGrouping<DateTime, OrderViewModel>> Orders { get; set; }
     }
 }
