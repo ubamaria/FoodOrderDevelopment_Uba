@@ -19,6 +19,7 @@ namespace FoodOrderView
         public new IUnityContainer Container { get; set; }
 
         private readonly IImplementerLogic logic;
+
         public FormImplementers(IImplementerLogic logic)
         {
             InitializeComponent();
@@ -29,6 +30,7 @@ namespace FoodOrderView
         {
             LoadData();
         }
+
         private void LoadData()
         {
             try
@@ -78,7 +80,6 @@ namespace FoodOrderView
                 if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-
                     try
                     {
                         logic.Delete(new ImplementerBindingModel { Id = id });
@@ -87,7 +88,6 @@ namespace FoodOrderView
                     {
                         MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-
                     LoadData();
                 }
             }

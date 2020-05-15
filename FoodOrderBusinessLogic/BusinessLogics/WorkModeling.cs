@@ -35,7 +35,6 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                 WorkerWorkAsync(implementer, orders);
             }
         }
-
         /// Иммитация работы исполнителя
         private async void WorkerWorkAsync(ImplementerViewModel implementer, List<OrderViewModel> orders)
         {
@@ -51,7 +50,6 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                 // отдыхаем
                 Thread.Sleep(implementer.PauseTime);
             }
-
             await Task.Run(() =>
             {
                 foreach (var order in orders)

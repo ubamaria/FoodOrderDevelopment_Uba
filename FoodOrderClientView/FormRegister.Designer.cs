@@ -40,55 +40,55 @@
             // labelEmail
             //
             this.labelEmail.AutoSize = true;
-            this.labelEmail.Location = new System.Drawing.Point(20, 21);
+            this.labelEmail.Location = new System.Drawing.Point(27, 39);
             this.labelEmail.Name = "labelEmail";
-            this.labelEmail.Size = new System.Drawing.Size(75, 13);
+            this.labelEmail.Size = new System.Drawing.Size(94, 17);
             this.labelEmail.TabIndex = 0;
-            this.labelEmail.Text = "Логин(почта):";
+            this.labelEmail.Text = "Логин/почта:";
             // // textBoxEmail
             //
-            this.textBoxEmail.Location = new System.Drawing.Point(101, 18);
+            this.textBoxEmail.Location = new System.Drawing.Point(127, 36);
             this.textBoxEmail.Name = "textBoxEmail";
-            this.textBoxEmail.Size = new System.Drawing.Size(200, 20);
+            this.textBoxEmail.Size = new System.Drawing.Size(251, 22);
             this.textBoxEmail.TabIndex = 1;
             //
             // labelPassword
             //
             this.labelPassword.AutoSize = true;
-            this.labelPassword.Location = new System.Drawing.Point(20, 64);
+            this.labelPassword.Location = new System.Drawing.Point(27, 85);
             this.labelPassword.Name = "labelPassword";
-            this.labelPassword.Size = new System.Drawing.Size(48, 13);
-            this.labelPassword.TabIndex = 2;
+            this.labelPassword.Size = new System.Drawing.Size(61, 17);
+            this.labelPassword.TabIndex = 1;
             this.labelPassword.Text = "Пароль:";
             //
             // textBoxPassword
             //
-            this.textBoxPassword.Location = new System.Drawing.Point(101, 61);
+            this.textBoxPassword.Location = new System.Drawing.Point(127, 80);
             this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(200, 20);
-            this.textBoxPassword.TabIndex = 3;
+            this.textBoxPassword.Size = new System.Drawing.Size(251, 22);
+            this.textBoxPassword.TabIndex = 4;
             //
             // labelClientFIO
             //
             this.labelClientFIO.AutoSize = true;
-            this.labelClientFIO.Location = new System.Drawing.Point(20, 108);
+            this.labelClientFIO.Location = new System.Drawing.Point(27, 123);
             this.labelClientFIO.Name = "labelClientFIO";
-            this.labelClientFIO.Size = new System.Drawing.Size(37, 13);
-            this.labelClientFIO.TabIndex = 4;
+            this.labelClientFIO.Size = new System.Drawing.Size(46, 17);
+            this.labelClientFIO.TabIndex = 2;
             this.labelClientFIO.Text = "ФИО:";
             //
             // textBoxClientFIO
             //
-            this.textBoxClientFIO.Location = new System.Drawing.Point(101, 105);
+            this.textBoxClientFIO.Location = new System.Drawing.Point(127, 123);
             this.textBoxClientFIO.Name = "textBoxClientFIO";
-            this.textBoxClientFIO.Size = new System.Drawing.Size(200, 20);
+            this.textBoxClientFIO.Size = new System.Drawing.Size(251, 22);
             this.textBoxClientFIO.TabIndex = 5;
             //
             // buttonRegister
             //
-            this.buttonRegister.Location = new System.Drawing.Point(149, 152);
+            this.buttonRegister.Location = new System.Drawing.Point(219, 164);
             this.buttonRegister.Name = "buttonRegister";
-            this.buttonRegister.Size = new System.Drawing.Size(100, 23);
+            this.buttonRegister.Size = new System.Drawing.Size(159, 37);
             this.buttonRegister.TabIndex = 6;
             this.buttonRegister.Text = "Регистрация";
             this.buttonRegister.UseVisualStyleBackColor = true;
@@ -99,7 +99,7 @@
             //
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(325, 200);
+            this.ClientSize = new System.Drawing.Size(405, 224);
             this.Controls.Add(this.buttonRegister);
             this.Controls.Add(this.textBoxClientFIO);
             this.Controls.Add(this.labelClientFIO);

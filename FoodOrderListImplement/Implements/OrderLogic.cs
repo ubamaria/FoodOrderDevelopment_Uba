@@ -1,4 +1,5 @@
 ﻿using FoodOrderBusinessLogic.BindingModels;
+using FoodOrderBusinessLogic.Enums;
 using FoodOrderBusinessLogic.Interfaces;
 using FoodOrderBusinessLogic.ViewModels;
 using FoodOrderListImplement.Models;
@@ -64,7 +65,10 @@ namespace FoodOrderListImplement.Implements
             {
                 if (model != null)
                 {
-                    if (Order.Id == model.Id || (model.DateFrom.HasValue && model.DateTo.HasValue && Order.DateCreate >= model.DateFrom && Order.DateCreate <= model.DateTo))
+                    if (Order.Id == model.Id || (model.DateFrom.HasValue && model.DateTo.HasValue && Order.DateCreate >= model.DateFrom && Order.DateCreate <= model.DateTo)
+                        || model.ClientId.HasValue && Order.ClientId == model.ClientId
+                        || model.FreeOrders.HasValue && model.FreeOrders.Value
+                    || model.ImplementerId.HasValue && Order.ImplementerId == model.ImplementerId && Order.Status == OrderStatus.Выполняется)
                     {
                         result.Add(CreateViewModel(Order));
                         break;
@@ -79,6 +83,8 @@ namespace FoodOrderListImplement.Implements
         {
             Order.SetId = model.SetId == 0 ? Order.SetId : model.SetId;
             Order.Count = model.Count;
+            Order.ClientId = (int)model.ClientId;
+            Order.ImplementerId = model.ImplementerId;
             Order.Sum = model.Sum;
             Order.Status = model.Status;
             Order.DateCreate = model.DateCreate;
@@ -100,6 +106,7 @@ namespace FoodOrderListImplement.Implements
             {
                 Id = Order.Id,
                 SetName = SetName,
+                ClientId = Order.ClientId,
                 Count = Order.Count,
                 Sum = Order.Sum,
                 Status = Order.Status,

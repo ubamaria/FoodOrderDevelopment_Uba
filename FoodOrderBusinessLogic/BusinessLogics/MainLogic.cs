@@ -57,6 +57,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                     Count = order.Count,
                     Sum = order.Sum,
                     DateCreate = order.DateCreate,
+                    DateImplement = DateTime.Now,
                     Status = OrderStatus.Выполняется
                 });
             }

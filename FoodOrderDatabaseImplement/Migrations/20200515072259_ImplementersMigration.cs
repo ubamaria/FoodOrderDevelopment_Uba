@@ -2,7 +2,7 @@
 
 namespace FoodOrderDatabaseImplement.Migrations
 {
-    public partial class ImplementersMig : Migration
+    public partial class ImplementersMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,7 @@ namespace FoodOrderDatabaseImplement.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ImplementerFIO = table.Column<string>(nullable: false),
+                    ImplementerFIO = table.Column<string>(nullable: true),
                     WorkingTime = table.Column<int>(nullable: false),
                     PauseTime = table.Column<int>(nullable: false)
                 },

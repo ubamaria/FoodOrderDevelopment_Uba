@@ -18,7 +18,6 @@ namespace FoodOrderView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         public int Id { set { id = value; } }
-
         private readonly IImplementerLogic logic;
         private int? id;
         public FormImplementer(IImplementerLogic logic)
@@ -26,7 +25,6 @@ namespace FoodOrderView
             InitializeComponent();
             this.logic = logic;
         }
-
         private void FormImplementer_Load(object sender, EventArgs e)
         {
             if (id.HasValue)
@@ -47,7 +45,6 @@ namespace FoodOrderView
                 }
             }
         }
-
         private void buttonSave_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBoxFIO.Text))
@@ -55,17 +52,15 @@ namespace FoodOrderView
                 MessageBox.Show("Заполните название", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             try
             {
                 logic?.CreateOrUpdate(new ImplementerBindingModel
                 {
-                    Id = id.Value,
+                    Id = id,
                     ImplementerFIO = textBoxFIO.Text,
                     WorkingTime = Int32.Parse(textBoxWorkingTime.Text),
                     PauseTime = Int32.Parse(textBoxPauseTime.Text),
                 });
-
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
@@ -75,7 +70,6 @@ namespace FoodOrderView
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;

@@ -18,14 +18,12 @@ namespace FoodOrderView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly IClientLogic logic;
-
         public FormClients(IClientLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
         }
-
-        private void FormClient_Load(object sender, EventArgs e)
+        private void FormClients_Load(object sender, EventArgs e)
         {
             LoadData();
         }
@@ -48,7 +46,6 @@ namespace FoodOrderView
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void buttonDel_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -68,7 +65,6 @@ namespace FoodOrderView
                 }
             }
         }
-
         private void buttonRef_Click(object sender, EventArgs e)
         {
             LoadData();

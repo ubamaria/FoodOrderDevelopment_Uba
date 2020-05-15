@@ -74,9 +74,9 @@
             this.Controls.Add(this.buttonRef);
             this.Controls.Add(this.buttonDel);
             this.Controls.Add(this.dataGridView);
-            this.Name = "FormClient";
-            this.Text = "Клиент";
-            this.Load += new System.EventHandler(this.FormClient_Load);
+            this.Name = "FormClients";
+            this.Text = "Клиенты";
+            this.Load += new System.EventHandler(this.FormClients_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
 

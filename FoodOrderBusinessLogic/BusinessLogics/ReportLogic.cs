@@ -14,12 +14,16 @@ namespace FoodOrderBusinessLogic.BusinessLogics
         private readonly ISetLogic setLogic;
         private readonly IOrderLogic orderLogic;
         public ReportLogic(ISetLogic setLogic, IDishLogic dishLogic,
-IOrderLogic orderLogic)
+       IOrderLogic orderLogic)
         {
             this.setLogic = setLogic;
             this.dishLogic = dishLogic;
             this.orderLogic = orderLogic;
         }
+        /// <summary>
+        /// Получение списка компонент с указанием, в каких изделиях используются
+        /// </summary>
+        /// <returns></returns>
         public List<ReportSetOfDishViewModel> GetSetOfDish()
         {
             var Sets = setLogic.Read(null);
@@ -28,33 +32,29 @@ IOrderLogic orderLogic)
             {
                 foreach (var sd in set.SetOfDishes)
                 {
-                        var record = new ReportSetOfDishViewModel
-                        {
-                            SetName = set.SetName,
-                            DishName = sd.Value.Item1,
-                            Count = sd.Value.Item2
-                        };
-                        list.Add(record);
+                    var record = new ReportSetOfDishViewModel
+                    {
+                        SetName = set.SetName,
+                        DishName = sd.Value.Item1,
+                        Count = sd.Value.Item2
+                    };
+                    list.Add(record);
                 }
             }
             return list;
         }
-        /// <summary>
-        /// Получение списка заказов за определенный период
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         public List<IGrouping<DateTime, OrderViewModel>> GetOrders(ReportBindingModel model)
         {
             var list = orderLogic
-             .Read(new OrderBindingModel
-             {
-                 DateFrom = model.DateFrom,
-                 DateTo = model.DateTo
-             })
-             .GroupBy(rec => rec.DateCreate.Date)
-             .OrderBy(recG => recG.Key)
-             .ToList();
+            .Read(new OrderBindingModel
+            {
+                DateFrom = model.DateFrom,
+                DateTo = model.DateTo
+            })
+            .GroupBy(rec => rec.DateCreate.Date)
+            .OrderBy(recG => recG.Key)
+            .ToList();
+
             return list;
         }
         /// <summary>
@@ -70,10 +70,7 @@ IOrderLogic orderLogic)
                 Sets = setLogic.Read(null)
             });
         }
-        /// <summary>
-        /// Сохранение в файл-Excel
-        /// </summary>
-        /// <param name="model"></param>
+       
         public void SaveOrdersToExcelFile(ReportBindingModel model)
         {
             SaveToExcel.CreateDoc(new ExcelInfo
@@ -83,16 +80,12 @@ IOrderLogic orderLogic)
                 Orders = GetOrders(model)
             });
         }
-        /// <summary>
-        /// Сохранение компонент с указаеним продуктов в файл-Pdf
-        /// </summary>
-        /// <param name="model"></param>
-        public void SaveSetOfDishToPdfFile(ReportBindingModel model)
+        public void SaveSetsToPdfFile(ReportBindingModel model)
         {
             SaveToPdf.CreateDoc(new PdfInfo
             {
                 FileName = model.FileName,
-                Title = "Список блюд по наборам",
+                Title = "Список наборов по блюдам",
                 SetOfDishes = GetSetOfDish(),
             });
         }

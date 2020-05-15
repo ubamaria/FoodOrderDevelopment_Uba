@@ -130,6 +130,7 @@ namespace FoodOrderView
         private void запускРаботToolStripMenuItem_Click(object sender, EventArgs e)
         {
             work.DoWork();
+            LoadData();
         }
 
         private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
