@@ -43,23 +43,26 @@ namespace FoodOrderBusinessLogic.BusinessLogics
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
-            if (!storageLogic.CheckFoodsAvailability(order.SetId, order.Count))
+            try
             {
-                throw new Exception("На складах не хватает продуктов");
+                storageLogic.RemoveFromStorage(order.SetId, order.Count);
+                orderLogic.CreateOrUpdate(new OrderBindingModel
+                {
+                    Id = order.Id,
+                    SetId = order.SetId,
+                    Count = order.Count,
+                    Sum = order.Sum,
+                    DateCreate = order.DateCreate,
+                    DateImplement = DateTime.Now,
+                    Status = OrderStatus.Выполняется
+                });
             }
-            orderLogic.CreateOrUpdate(new OrderBindingModel
+            catch (Exception ex)
             {
-                Id = order.Id,
-                SetId = order.SetId,
-                Count = order.Count,
-                Sum = order.Sum,
-                DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now,
-                Status = OrderStatus.Выполняется
-            });
-            storageLogic.RemoveFromStorage(order.SetId, order.Count);
+                throw ex;
+            }
         }
-        public void FinishOrder(ChangeStatusBindingModel model)
+            public void FinishOrder(ChangeStatusBindingModel model)
         {
             var order = orderLogic.Read(new OrderBindingModel
             {

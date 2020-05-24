@@ -65,7 +65,7 @@ MessageBoxIcon.Error);
             }
             if (comboBoxDish.SelectedValue == null)
             {
-                MessageBox.Show("Выберите цветок", "Ошибка", MessageBoxButtons.OK,
+                MessageBox.Show("Выберите блюдо", "Ошибка", MessageBoxButtons.OK,
 MessageBoxIcon.Error);
                 return;
             }
