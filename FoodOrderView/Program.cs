@@ -37,6 +37,8 @@ HierarchicalLifetimeManager());
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<ReportLogic>(new
 HierarchicalLifetimeManager());
+            currentContainer.RegisterType<WorkModeling>(new
+HierarchicalLifetimeManager());
             currentContainer.RegisterType<IImplementerLogic, ImplementerLogic>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
