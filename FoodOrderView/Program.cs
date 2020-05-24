@@ -1,6 +1,6 @@
 ﻿using FoodOrderBusinessLogic.BusinessLogics;
 using FoodOrderBusinessLogic.Interfaces;
-using FoodOrderDatabaseImplement.Implement;
+using FoodOrderDatabaseImplement.Implements;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -33,7 +33,7 @@ HierarchicalLifetimeManager());
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<IStorageLogic, StorageLogic>(new
 HierarchicalLifetimeManager());
-            currentContainer.RegisterType<MainLogic, MainLogic>(new
+            currentContainer.RegisterType<MainLogic>(new
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<ReportLogic>(new
 HierarchicalLifetimeManager());

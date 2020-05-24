@@ -89,7 +89,7 @@ namespace FoodOrderDatabaseImplement.Implements
                 {
                     try
                     {
-                        // удаяем записи по компонентам при удалении изделия
+                        // удаляем записи по компонентам при удалении изделия
                         context.SetOfDishes.RemoveRange(context.SetOfDishes.Where(rec =>
                         rec.SetId == model.Id));
                         Set element = context.Sets.FirstOrDefault(rec => rec.Id == model.Id);

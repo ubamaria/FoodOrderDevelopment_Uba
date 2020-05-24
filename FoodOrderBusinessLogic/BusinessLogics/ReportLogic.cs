@@ -42,7 +42,7 @@ IOrderLogic orderLogic, IStorageLogic storageLogic)
             }
             return list;
         }
-        public List<ReportStorageDishViewModel> GetStorageFoods()
+        public List<ReportStorageDishViewModel> GetStorageDishes()
         {
             var list = new List<ReportStorageDishViewModel>();
             var storages = storageLogic.GetList();

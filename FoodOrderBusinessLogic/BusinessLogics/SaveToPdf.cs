@@ -27,26 +27,29 @@ namespace FoodOrderBusinessLogic.BusinessLogics
             {
                 table.AddColumn(elem);
             }
-            CreateRow(new PdfRowParameters
-            {
-                Table = table,
-                Texts = new List<string> { "Набор", "Блюдо", "Количество" },
-                Style = "NormalTitle",
-                ParagraphAlignment = ParagraphAlignment.Center
-            });
-            foreach (var sd in info.SetOfDishes)
+            if (info.SetOfDishes != null)
             {
                 CreateRow(new PdfRowParameters
                 {
                     Table = table,
-                    Texts = new List<string> {
+                    Texts = new List<string> { "Набор", "Блюдо", "Количество" },
+                    Style = "NormalTitle",
+                    ParagraphAlignment = ParagraphAlignment.Center
+                });
+                foreach (var sd in info.SetOfDishes)
+                {
+                    CreateRow(new PdfRowParameters
+                    {
+                        Table = table,
+                        Texts = new List<string> {
                         sd.SetName,
                         sd.DishName,
                         sd.Count.ToString()
                     },
-                    Style = "Normal",
-                    ParagraphAlignment = ParagraphAlignment.Left
-                });
+                        Style = "Normal",
+                        ParagraphAlignment = ParagraphAlignment.Left
+                    });
+                }
             }
             else if (info.StorageDishes != null)
             {

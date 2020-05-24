@@ -36,8 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.10.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
-      <HintPath>..\packages\DocumentFormat.OpenXml.2.10.1\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.11.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.11.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -216,6 +216,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormReportDishes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportDishes.Designer.cs">
+      <DependentUpon>FormReportDishes.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormReportOrders.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -258,6 +264,12 @@
     <Compile Include="FormReportSetOfDish.Designer.cs">
       <DependentUpon>FormReportSetOfDish.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReportStorageDishes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportStorageDishes.Designer.cs">
+      <DependentUpon>FormReportStorageDishes.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -291,6 +303,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <EmbeddedResource Include="FormReportDishes.resx">
+      <DependentUpon>FormReportDishes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormReportOrders.resx">
       <DependentUpon>FormReportOrders.cs</DependentUpon>
     </EmbeddedResource>
@@ -311,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormReportSetOfDish.resx">
       <DependentUpon>FormReportSetOfDish.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReportStorageDishes.resx">
+      <DependentUpon>FormReportStorageDishes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSet.resx">
       <DependentUpon>FormSet.cs</DependentUpon>
@@ -336,6 +354,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ReportStorageDishes.rdlc" />
     <EmbeddedResource Include="ReportSetOfDish.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\FoodOrderBusinessLogic.BindingModels.ChangeStatusBindingModel.datasource" />
@@ -351,7 +370,10 @@
     <None Include="Properties\DataSources\FoodOrderBusinessLogic.ViewModels.OrderViewModel.datasource" />
     <None Include="Properties\DataSources\FoodOrderBusinessLogic.ViewModels.ReportOrdersViewModel.datasource" />
     <None Include="Properties\DataSources\FoodOrderBusinessLogic.ViewModels.ReportSetOfDishViewModel.datasource" />
+    <None Include="Properties\DataSources\FoodOrderBusinessLogic.ViewModels.ReportStorageDishViewModel.datasource" />
     <None Include="Properties\DataSources\FoodOrderBusinessLogic.ViewModels.SetViewModel.datasource" />
+    <None Include="Properties\DataSources\FoodOrderBusinessLogic.ViewModels.StorageDishViewModel.datasource" />
+    <None Include="Properties\DataSources\FoodOrderBusinessLogic.ViewModels.StorageViewModel.datasource" />
     <None Include="Properties\DataSources\FoodOrderView.Properties.Resources.datasource" />
     <None Include="Properties\DataSources\FoodOrderView.Properties.Settings.datasource" />
     <None Include="Properties\DataSources\FormCreateOrder.datasource" />

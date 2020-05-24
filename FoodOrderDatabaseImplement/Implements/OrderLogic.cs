@@ -14,7 +14,6 @@ namespace FoodOrderDatabaseImplement.Implements
     {
         public void CreateOrUpdate(OrderBindingModel model)
         {
-            {
                 using (var context = new FoodOrderDatabase())
                 {
                     Order element;
@@ -40,7 +39,6 @@ namespace FoodOrderDatabaseImplement.Implements
                     element.DateImplement = model.DateImplement;
                     context.SaveChanges();
                 }
-            }
         }
         public void Delete(OrderBindingModel model)
         {
