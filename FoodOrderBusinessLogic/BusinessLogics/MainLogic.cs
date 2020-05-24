@@ -43,6 +43,10 @@ namespace FoodOrderBusinessLogic.BusinessLogics
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
+            if (!storageLogic.CheckFoodsAvailability(order.SetId, order.Count))
+            {
+                throw new Exception("На складах не хватает продуктов");
+            }
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 Id = order.Id,
@@ -53,6 +57,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                 DateImplement = DateTime.Now,
                 Status = OrderStatus.Выполняется
             });
+            storageLogic.RemoveFromStorage(order.SetId, order.Count);
         }
         public void FinishOrder(ChangeStatusBindingModel model)
         {

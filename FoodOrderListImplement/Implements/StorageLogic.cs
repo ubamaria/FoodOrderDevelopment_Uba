@@ -4,6 +4,7 @@ using FoodOrderBusinessLogic.ViewModels;
 using FoodOrderListImplement.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace FoodOrderListImplement.Implements
@@ -162,47 +163,19 @@ namespace FoodOrderListImplement.Implements
         public void FillStorage(StorageDishBindingModel model)
         {
             int index = -1;
-            for (int i = 0; i < source.Storages.Count; ++i)
-            {
-                if (source.Storages[i].Id == model.StorageId)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            if (index == -1)
-            {
-                throw new Exception("Склад не найден");
-            }
-
-            index = -1;
-            for (int i = 0; i < source.Dishes.Count; ++i)
-            {
-                if (source.Dishes[i].Id == model.DishId)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            if (index == -1)
-            {
-                throw new Exception("Блюдо не найдено");
-            }
-
-            int foundItemIndex = -1;
             for (int i = 0; i < source.StorageDishes.Count; ++i)
             {
                 if (source.StorageDishes[i].DishId == model.DishId
                     && source.StorageDishes[i].StorageId == model.StorageId)
                 {
-                    foundItemIndex = i;
+                    index = i;
                     break;
                 }
             }
-            if (foundItemIndex != -1)
+            if (index != -1)
             {
-                source.StorageDishes[foundItemIndex].Count =
-                    source.StorageDishes[foundItemIndex].Count + model.Count;
+                source.StorageDishes[index].Count =
+                    source.StorageDishes[index].Count + model.Count;
             }
             else
             {
@@ -222,6 +195,39 @@ namespace FoodOrderListImplement.Implements
                     Count = model.Count
                 });
             }
+        }
+        public bool CheckFoodsAvailability(int SetId, int SetsCount)
+        {
+            bool result = true;
+            var SetOfDishes = source.SetOfDishes.Where(x => x.SetId == SetId);
+            if (SetOfDishes.Count() == 0) return false;
+            foreach (var elem in SetOfDishes)
+            {
+                int count = 0;
+                var storageDishes = source.StorageDishes.FindAll(x => x.DishId == elem.DishId);
+                count = storageDishes.Sum(x => x.Count);
+                if (count < elem.Count * SetsCount)
+                    return false;
+            }
+            return result;
+        }
+        public void RemoveFromStorage(int SetId, int SetsCount)
+        {
+            var SetOfDishes = source.SetOfDishes.Where(x => x.SetId == SetId);
+            if (SetOfDishes.Count() == 0) return;
+            foreach (var elem in SetOfDishes)
+            {
+                int left = elem.Count * SetsCount;
+                var storageDishes = source.StorageDishes.FindAll(x => x.DishId == elem.DishId);
+                foreach (var rec in storageDishes)
+                {
+                    int toRemove = left > rec.Count ? rec.Count : left;
+                    rec.Count -= toRemove;
+                    left -= toRemove;
+                    if (left == 0) break;
+                }
+            }
+            return;
         }
     }
 }
