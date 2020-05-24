@@ -48,6 +48,46 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                     ParagraphAlignment = ParagraphAlignment.Left
                 });
             }
+            else if (info.StorageDishes != null)
+            {
+                int sum = 0;
+                CreateRow(new PdfRowParameters
+                {
+                    Table = table,
+                    Texts = new List<string> { "Блюдо", "Склад", "Количество" },
+                    Style = "NormalTitle",
+                    ParagraphAlignment = ParagraphAlignment.Center
+                });
+
+                foreach (var sd in info.StorageDishes)
+                {
+                    CreateRow(new PdfRowParameters
+                    {
+                        Table = table,
+                        Texts = new List<string>
+                    {
+                        sd.DishName,
+                        sd.StorageName,
+                        sd.Count.ToString()
+                    },
+                        Style = "Normal",
+                        ParagraphAlignment = ParagraphAlignment.Left
+                    });
+                    sum += sd.Count;
+                }
+                CreateRow(new PdfRowParameters
+                {
+                    Table = table,
+                    Texts = new List<string>
+                    {
+                        "Всего",
+                        "",
+                        sum.ToString()
+                    },
+                    Style = "Normal",
+                    ParagraphAlignment = ParagraphAlignment.Left
+                });
+            }
             PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always)
             {
                 Document = document

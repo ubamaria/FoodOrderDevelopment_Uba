@@ -29,7 +29,9 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                         JustificationValues = JustificationValues.Center
                     }
                 }));
-                foreach (var set in info.Sets)
+                if (info.Sets != null)
+                {
+                    foreach (var set in info.Sets)
                 {
                     docBody.AppendChild(CreateParagraph(new WordParagraph
                     {
@@ -42,10 +44,44 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                         }
                     }));
                 }
+            }
+                else if (info.Storages != null)
+                {
+                    Table table = new Table();
+                    TableProperties props = new TableProperties(
+                        new TableBorders(
+                            new TopBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 12 },
+                            new BottomBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 12 },
+                            new LeftBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 12 },
+                            new RightBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 12 },
+                            new InsideHorizontalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 12 },
+                            new InsideVerticalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 12 }
+                    ));
+                    table.AppendChild(props);
+                    foreach (var storages in info.Storages)
+                    {
+                        var tr = new TableRow();
+                        var tc = new TableCell();
+                        tc.Append(CreateParagraph(new WordParagraph
+                        {
+                            Texts = new List<string> { storages.StorageName },
+                            TextProperties = new WordParagraphProperties
+                            {
+                                Bold = false,
+                                Size = "24",
+                                JustificationValues = JustificationValues.Both
+                            }
+                        }));
+                        tr.AppendChild(tc);
+                        table.AppendChild(tr);
+                    }
+                    docBody.AppendChild(table);
+                }
                 docBody.AppendChild(CreateSectionProperties());
                 wordDocument.MainDocumentPart.Document.Save();
             }
         }
+
         private static SectionProperties CreateSectionProperties()
         {
             SectionProperties properties = new SectionProperties();
