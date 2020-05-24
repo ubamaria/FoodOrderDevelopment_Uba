@@ -10,7 +10,7 @@ namespace FoodOrderBusinessLogic.ViewModels
         public int Id { get; set; }
         public int StorageId { get; set; }
         public int DishId { get; set; }
-        [DisplayName("Название склада")]
+        [DisplayName("Название блюда")]
         public string DishName { get; set; }
         [DisplayName("Количество")]
         public int Count { get; set; }
