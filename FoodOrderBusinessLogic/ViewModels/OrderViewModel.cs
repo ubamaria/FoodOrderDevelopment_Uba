@@ -11,7 +11,7 @@ namespace FoodOrderBusinessLogic.ViewModels
         public int Id { get; set; }
         public int SetId { get; set; }
 
-        [DisplayName("Блюдо")]
+        [DisplayName("Набор")]
         public string SetName { get; set; }
 
         [DisplayName("Количество")]

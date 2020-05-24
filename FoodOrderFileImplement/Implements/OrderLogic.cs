@@ -60,7 +60,7 @@ namespace FoodOrderFileImplement.Implements
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
-                    SetName = GetSetName(rec.SetId),
+                    SetName = source.Sets.FirstOrDefault(x => x.Id == rec.SetId)?.SetName,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -68,14 +68,6 @@ namespace FoodOrderFileImplement.Implements
                     DateImplement = rec.DateImplement
                 })
                 .ToList();
-            }
-
-            private string GetSetName(int id)
-            {
-                string name = "";
-                var set = source.Sets.FirstOrDefault(x => x.Id == id);
-                name = set != null ? set.SetName : "";
-                return name;
             }
         }
 }
