@@ -37,11 +37,21 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                 {
                     try
                     {
-                        objMailMessage.From = new MailAddress(mailLogin); objMailMessage.To.Add(new MailAddress(info.MailAddress)); objMailMessage.Subject = info.Subject; objMailMessage.Body = info.Text; objMailMessage.SubjectEncoding = Encoding.UTF8; objMailMessage.BodyEncoding = Encoding.UTF8;
-
-                        objSmtpClient.UseDefaultCredentials = false; objSmtpClient.EnableSsl = true; objSmtpClient.DeliveryMethod = SmtpDeliveryMethod.Network; objSmtpClient.Credentials = new NetworkCredential(mailLogin, mailPassword);
-
-                        await Task.Run(() => objSmtpClient.SendAsync(objMailMessage, null));
+                        objMailMessage.From = new MailAddress(mailLogin); 
+                        
+                        
+                        objMailMessage.To.Add(new MailAddress(info.MailAddress)); 
+                        objMailMessage.Subject = info.Subject; 
+                        objMailMessage.Body = info.Text; 
+                        objMailMessage.SubjectEncoding = Encoding.UTF8; 
+                        objMailMessage.BodyEncoding = Encoding.UTF8;
+                        objSmtpClient.UseDefaultCredentials = false; 
+                        objSmtpClient.EnableSsl = true; 
+                        objSmtpClient.DeliveryMethod = SmtpDeliveryMethod.Network; 
+                        objSmtpClient.Credentials = new NetworkCredential(mailLogin, mailPassword);
+                        //await Task.Run(() => 
+                        //objSmtpClient.SendAsync(objMailMessage, null));
+                        objSmtpClient.Send(objMailMessage);
                     }
                     catch (Exception) { throw; }
                 }
@@ -50,26 +60,40 @@ namespace FoodOrderBusinessLogic.BusinessLogics
 
         public static async void MailCheck(MailCheckInfo info)
         {
-            if (string.IsNullOrEmpty(info.PopHost) || info.PopPort == 0) { return; }
-
-            if (string.IsNullOrEmpty(mailLogin) || string.IsNullOrEmpty(mailPassword)) { return; }
-
-            if (info.Logic == null) { return; }
-
+            if (string.IsNullOrEmpty(info.PopHost) || info.PopPort == 0)
+            {
+                return;
+            }
+            if (string.IsNullOrEmpty(mailLogin) || string.IsNullOrEmpty(mailPassword))
+            {
+                return;
+            }
+            if (info.Logic == null)
+            {
+                return;
+            }
             using (var client = new Pop3Client())
             {
-                await Task.Run(() => {
-                    client.Connect(info.PopHost, info.PopPort, SecureSocketOptions.SslOnConnect);
-
+                await Task.Run(() =>
+                {
+                    client.Connect(info.PopHost, info.PopPort,
+                  SecureSocketOptions.SslOnConnect);
                     client.Authenticate(mailLogin, mailPassword);
-
                     for (int i = 0; i < client.Count; i++)
                     {
                         var message = client.GetMessage(i);
-
-                        foreach (var mail in message.From.Mailboxes) { info.Logic.Create(new MessageInfoBindingModel { DateDelivery = message.Date.DateTime, MessageId = message.MessageId, FromMailAddress = mail.Address, Subject = message.Subject, Body = message.TextBody }); }
+                        foreach (var mail in message.From.Mailboxes)
+                        {
+                            info.Logic.Create(new MessageInfoBindingModel
+                            {
+                                DateDelivery = message.Date.DateTime,
+                                MessageId = message.MessageId,
+                                FromMailAddress = mail.Address,
+                                Subject = message.Subject,
+                                Body = message.TextBody
+                            });
+                        }
                     }
-
                     client.Disconnect(true);
                 });
             }
