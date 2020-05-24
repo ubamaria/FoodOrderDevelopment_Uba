@@ -157,7 +157,7 @@ namespace FoodOrderDatabaseImplement.Implements
                             int left = elem.Count * SetsCount;
                             var StorageDishes = context.StorageDishes.Where(x => x.DishId == elem.DishId);
                             int available = StorageDishes.Sum(x => x.Count);
-                            if (available < left) throw new Exception("Недостаточно наборов на складе");
+                            if (available < left) throw new Exception("Недостаточно блюд на складе");
                             foreach (var rec in StorageDishes)
                             {
                                 int toRemove = left > rec.Count ? rec.Count : left;
