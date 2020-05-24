@@ -45,7 +45,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
             }
             if (!storageLogic.CheckFoodsAvailability(order.SetId, order.Count))
             {
-                throw new Exception("На складах не хватает продуктов");
+                throw new Exception("Недостаточно блюд на складе");
             }
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
