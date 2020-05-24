@@ -1,6 +1,8 @@
 ﻿using FoodOrderBusinessLogic.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FoodOrderBusinessLogic.BindingModels
@@ -8,6 +10,7 @@ namespace FoodOrderBusinessLogic.BindingModels
     public class OrderBindingModel
     {
         public int? Id { get; set; }
+        public int? ClientId { get; set; }
         public int SetId { get; set; }
         public int Count { get; set; }
         public decimal Sum { get; set; }

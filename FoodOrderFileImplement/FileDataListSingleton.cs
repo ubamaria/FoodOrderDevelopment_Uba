@@ -15,10 +15,12 @@ namespace FoodOrderFileImplement
         private readonly string OrderFileName = "Order.xml";
         private readonly string SetFileName = "Set.xml";
         private readonly string SetOfDishFileName = "SetOfDish.xml";
+        private readonly string ClientFileName = "Client.xml";
         public List<Dish> Dishes { get; set; }
         public List<Order> Orders { get; set; }
         public List<Set> Sets { get; set; }
         public List<SetOfDish> SetOfDishes { get; set; }
+        public List<Client> Clients { get; set; }
         private FileDataListSingleton()
         {
             Dishes = LoadDishes();
@@ -40,6 +42,7 @@ namespace FoodOrderFileImplement
             SaveOrders();
             SaveSets();
             SaveSetOfDishes();
+            SaveClients();
         }
         private List<Dish> LoadDishes()
         {
@@ -81,6 +84,7 @@ namespace FoodOrderFileImplement
                         DateImplement =
                    string.IsNullOrEmpty(elem.Element("DateImplement").Value) ? (DateTime?)null :
                    Convert.ToDateTime(elem.Element("DateImplement").Value),
+                        ClientId = Convert.ToInt32(elem.Element("ClientId").Value),
                     });
                 }
             }
@@ -153,7 +157,8 @@ namespace FoodOrderFileImplement
                     new XElement("Sum", order.Sum),
                     new XElement("Status", order.Status),
                     new XElement("DateCreate", order.DateCreate),
-                    new XElement("DateImplement", order.DateImplement)));
+                    new XElement("DateImplement", order.DateImplement),
+                    new XElement("ClientId", order.ClientId)));
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(OrderFileName);
@@ -192,6 +197,44 @@ namespace FoodOrderFileImplement
                 xDocument.Save(SetOfDishFileName);
             }
         }
+        private List<Client> LoadClients()
+        {
+            var list = new List<Client>();
+            if (File.Exists(ClientFileName))
+            {
+                XDocument xDocument = XDocument.Load(ClientFileName);
+                var xElements = xDocument.Root.Elements("Client").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new Client
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        ClientFIO = elem.Element("ClientFIO").Value,
+                        Email = elem.Element("Email").Value,
+                        Password = elem.Element("Password").Value
+                    });
+                }
+            }
+            return list;
+        }
+        private void SaveClients()
+        {
+            if (Clients != null)
+            {
+                var xElement = new XElement("Clients");
 
+                foreach (var client in Clients)
+                {
+                    xElement.Add(new XElement("Client",
+                    new XAttribute("Id", client.Id),
+                    new XElement("ClientFIO", client.ClientFIO),
+                    new XElement("Email", client.Email),
+                    new XElement("Password", client.Password)));
+                }
+
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(ClientFileName);
+            }
+        }
     }
 }

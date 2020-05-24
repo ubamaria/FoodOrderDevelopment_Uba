@@ -9,8 +9,6 @@ namespace FoodOrderDatabaseImplement.Models
         public int Id { get; set; }
         [Required]
         public string SetName { get; set; }
-        [ForeignKey("SetId")]
-
         [Required]
         public decimal Price { get; set; }
 

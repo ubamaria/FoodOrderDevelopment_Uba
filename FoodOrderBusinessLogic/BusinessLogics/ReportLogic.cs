@@ -22,18 +22,18 @@ IOrderLogic orderLogic)
         }
         public List<ReportSetOfDishViewModel> GetSetOfDish()
         {
-            var sets = setLogic.Read(null);
+
+            var Sets = setLogic.Read(null);
             var list = new List<ReportSetOfDishViewModel>();
-            foreach (var set in sets)
+            foreach (var set in Sets)
             {
-                foreach (var ds in set.SetOfDishes)
+                foreach (var sd in set.SetOfDishes)
                 {
-                   
                         var record = new ReportSetOfDishViewModel
                         {
                             SetName = set.SetName,
-                            DishName = ds.Value.Item1,
-                            Count = ds.Value.Item2
+                            DishName = sd.Value.Item1,
+                            Count = sd.Value.Item2
                         };
                         list.Add(record);
                 }
@@ -48,15 +48,15 @@ IOrderLogic orderLogic)
         public List<IGrouping<DateTime, OrderViewModel>> GetOrders(ReportBindingModel model)
         {
             var list = orderLogic
-            .Read(new OrderBindingModel
-            {
-                DateFrom = model.DateFrom,
-                DateTo = model.DateTo
-            })
-            .GroupBy(rec => rec.DateCreate.Date)
-            .OrderBy(recG => recG.Key)
-            .ToList();
 
+             .Read(new OrderBindingModel
+             {
+                 DateFrom = model.DateFrom,
+                 DateTo = model.DateTo
+             })
+             .GroupBy(rec => rec.DateCreate.Date)
+             .OrderBy(recG => recG.Key)
+             .ToList();
             return list;
         }
         /// <summary>

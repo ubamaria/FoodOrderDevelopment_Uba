@@ -20,11 +20,13 @@ namespace FoodOrderView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly ISetLogic logicS;
+        private readonly IClientLogic logicC;
         private readonly MainLogic logicM;
-        public FormCreateOrder(ISetLogic logicS, MainLogic logicM)
+        public FormCreateOrder(ISetLogic logicS, IClientLogic logicC, MainLogic logicM)
         {
             InitializeComponent();
             this.logicS = logicS;
+            this.logicC = logicC;
             this.logicM = logicM;
 
         }
@@ -37,6 +39,11 @@ namespace FoodOrderView
                 comboBoxSet.DataSource = list;
                 comboBoxSet.DisplayMember = "SetName";
                 comboBoxSet.ValueMember = "Id";
+                var listC = logicC.Read(null);
+                comboBoxClient.DisplayMember = "ClientFIO";
+                comboBoxClient.ValueMember = "Id";
+                comboBoxClient.DataSource = listC;
+                comboBoxClient.SelectedItem = null;
             }
             catch (Exception ex)
             {
@@ -96,6 +103,7 @@ namespace FoodOrderView
                 logicM.CreateOrder(new CreateOrderBindingModel
                 {
                     SetId = Convert.ToInt32(comboBoxSet.SelectedValue),
+                    ClientId = Convert.ToInt32(comboBoxClient.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)
                 });

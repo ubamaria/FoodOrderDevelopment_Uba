@@ -64,7 +64,8 @@ namespace FoodOrderListImplement.Implements
             {
                 if (model != null)
                 {
-                    if (Order.Id == model.Id || (model.DateFrom.HasValue && model.DateTo.HasValue && Order.DateCreate >= model.DateFrom && Order.DateCreate <= model.DateTo))
+                    if (Order.Id == model.Id || (model.DateFrom.HasValue && model.DateTo.HasValue && Order.DateCreate >= model.DateFrom && Order.DateCreate <= model.DateTo)
+                        || model.ClientId.HasValue && Order.ClientId == model.ClientId)
                     {
                         result.Add(CreateViewModel(Order));
                         break;
@@ -78,6 +79,7 @@ namespace FoodOrderListImplement.Implements
         private Order CreateModel(OrderBindingModel model, Order Order)
         {
             Order.SetId = model.SetId == 0 ? Order.SetId : model.SetId;
+            Order.ClientId = model.ClientId;
             Order.Count = model.Count;
             Order.Sum = model.Sum;
             Order.Status = model.Status;
@@ -99,6 +101,7 @@ namespace FoodOrderListImplement.Implements
             return new OrderViewModel
             {
                 Id = Order.Id,
+                ClientId = Order.ClientId,
                 SetName = SetName,
                 Count = Order.Count,
                 Sum = Order.Sum,
