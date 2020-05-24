@@ -21,6 +21,8 @@
     <Compile Remove="Migrations\20200403080943_InitialCreate2.Designer.cs" />
     <Compile Remove="Migrations\20200424090753_ImplementersMig.cs" />
     <Compile Remove="Migrations\20200424090753_ImplementersMig.Designer.cs" />
+    <Compile Remove="Migrations\20200515081111_MessagesMigration.cs" />
+    <Compile Remove="Migrations\20200515081111_MessagesMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

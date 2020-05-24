@@ -1,5 +1,6 @@
 ﻿using FoodOrderBusinessLogic.BindingModels;
 using FoodOrderBusinessLogic.Enums;
+using FoodOrderBusinessLogic.HelperModels;
 using FoodOrderBusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace FoodOrderBusinessLogic.BusinessLogics
     {
         private readonly IOrderLogic orderLogic;
         private readonly object locker = new object();
+        private readonly IClientLogic clientLogic;
 
-        public MainLogic(IOrderLogic orderLogic)
+        public MainLogic(IOrderLogic orderLogic, IClientLogic clientLogic)
         {
             this.orderLogic = orderLogic;
+            this.clientLogic = clientLogic;
         }
         public void CreateOrder(CreateOrderBindingModel model)
         {
@@ -27,6 +30,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                 DateCreate = DateTime.Now,
                 Status = OrderStatus.Принят
             });
+            MailLogic.MailSendAsync(new MailSendInfo { MailAddress = clientLogic.Read(new ClientBindingModel { Id = model.ClientId })?[0]?.Email, Subject = $"Новый заказ", Text = $"Заказ принят." });
         }
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
@@ -60,6 +64,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                     DateImplement = DateTime.Now,
                     Status = OrderStatus.Выполняется
                 });
+                MailLogic.MailSendAsync(new MailSendInfo { MailAddress = clientLogic.Read(new ClientBindingModel { Id = order.ClientId })?[0]?.Email, Subject = $"Заказ №{order.Id}", Text = $"Заказ №{order.Id} передан в работу." });
             }
         }
         public void FinishOrder(ChangeStatusBindingModel model)
@@ -88,6 +93,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                 DateImplement = DateTime.Now,
                 Status = OrderStatus.Готов
             });
+            MailLogic.MailSendAsync(new MailSendInfo { MailAddress = clientLogic.Read(new ClientBindingModel { Id = order.ClientId })?[0]?.Email, Subject = $"Заказ №{order.Id}", Text = $"Заказ №{order.Id} готов." });
         }
         public void PayOrder(ChangeStatusBindingModel model)
         {
@@ -115,6 +121,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                 DateImplement = order.DateImplement,
                 Status = OrderStatus.Оплачен
             });
+            MailLogic.MailSendAsync(new MailSendInfo { MailAddress = clientLogic.Read(new ClientBindingModel { Id = order.ClientId })?[0]?.Email, Subject = $"Заказ №{order.Id}", Text = $"Заказ №{order.Id} оплачен." });
         }
     }
 }
