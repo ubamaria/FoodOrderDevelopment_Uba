@@ -155,6 +155,7 @@
             this.MainMenuStrip = this.menuStripFoodOrder;
             this.Name = "FormMain";
             this.Text = "Заказ еды";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStripFoodOrder.ResumeLayout(false);
             this.menuStripFoodOrder.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
