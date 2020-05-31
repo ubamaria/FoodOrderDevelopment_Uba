@@ -4,6 +4,7 @@ using FoodOrderBusinessLogic.ViewModels;
 using FoodOrderListImplement.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace FoodOrderListImplement.Implements
@@ -17,30 +18,28 @@ namespace FoodOrderListImplement.Implements
         }
         public void CreateOrUpdate(ImplementerBindingModel model)
         {
-            Implementer tempImplementer = new Implementer { Id = 1 };
-            bool isImplementerExist = false;
-            foreach (var implementer in source.Implementers)
-            {
-                if (implementer.Id >= tempImplementer.Id)
+                Implementer tempImplementer = model.Id.HasValue ? null : new Implementer();
+
+                if (model.Id.HasValue)
                 {
-                    tempImplementer.Id = implementer.Id + 1;
+                    tempImplementer = source.Implementers.FirstOrDefault(rec => rec.ImplementerFIO == model.ImplementerFIO && rec.Id == model.Id);
                 }
-                else if (implementer.Id == model.Id)
+
+                if (model.Id.HasValue)
                 {
-                    tempImplementer = implementer;
-                    isImplementerExist = true;
-                    break;
+                    if (tempImplementer == null)
+                    {
+                        throw new Exception("Элемент не найден");
+                    }
+
+                    CreateModel(model, tempImplementer);
                 }
-            }
-            if (isImplementerExist)
-            {
-                CreateModel(model, tempImplementer);
-            }
-            else
-            {
+                else
+                {
                 source.Implementers.Add(CreateModel(model, tempImplementer));
+                }
             }
-        }
+        
         public void Delete(ImplementerBindingModel model)
         {
             for (int i = 0; i < source.Implementers.Count; ++i)
