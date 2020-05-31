@@ -26,6 +26,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
         /// <returns></returns>
         public List<ReportSetOfDishViewModel> GetSetOfDish()
         {
+
             var Sets = setLogic.Read(null);
             var list = new List<ReportSetOfDishViewModel>();
             foreach (var set in Sets)
@@ -46,6 +47,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
         public List<IGrouping<DateTime, OrderViewModel>> GetOrders(ReportBindingModel model)
         {
             var list = orderLogic
+
             .Read(new OrderBindingModel
             {
                 DateFrom = model.DateFrom,
@@ -54,7 +56,6 @@ namespace FoodOrderBusinessLogic.BusinessLogics
             .GroupBy(rec => rec.DateCreate.Date)
             .OrderBy(recG => recG.Key)
             .ToList();
-
             return list;
         }
         /// <summary>

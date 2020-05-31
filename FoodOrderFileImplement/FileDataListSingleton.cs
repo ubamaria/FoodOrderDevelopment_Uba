@@ -24,6 +24,7 @@ namespace FoodOrderFileImplement
         public List<SetOfDish> SetOfDishes { get; set; }
         public List<Client> Clients { get; set; }
         public List<Implementer> Implementers { get; set; }
+      
         private FileDataListSingleton()
         {
             Dishes = LoadDishes();
@@ -90,6 +91,7 @@ namespace FoodOrderFileImplement
                         DateImplement =
                    string.IsNullOrEmpty(elem.Element("DateImplement").Value) ? (DateTime?)null :
                    Convert.ToDateTime(elem.Element("DateImplement").Value),
+                        ClientId = Convert.ToInt32(elem.Element("ClientId").Value),
                     });
                 }
             }
@@ -204,7 +206,8 @@ namespace FoodOrderFileImplement
                     new XElement("Sum", order.Sum),
                     new XElement("Status", order.Status),
                     new XElement("DateCreate", order.DateCreate),
-                    new XElement("DateImplement", order.DateImplement)));
+                    new XElement("DateImplement", order.DateImplement),
+                    new XElement("ClientId", order.ClientId)));
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(OrderFileName);
@@ -243,6 +246,27 @@ namespace FoodOrderFileImplement
                 xDocument.Save(SetOfDishFileName);
             }
         }
+        private List<Client> LoadClients()
+        {
+            var list = new List<Client>();
+            if (File.Exists(ClientFileName))
+            {
+                XDocument xDocument = XDocument.Load(ClientFileName);
+                var xElements = xDocument.Root.Elements("Client").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new Client
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        ClientFIO = elem.Element("ClientFIO").Value,
+                        Email = elem.Element("Email").Value,
+                        Password = elem.Element("Password").Value
+                    });
+                }
+            }
+            return list;
+        }
+
         private void SaveClients()
         {
             if (Clients != null)

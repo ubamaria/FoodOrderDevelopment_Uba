@@ -63,6 +63,7 @@ namespace FoodOrderFileImplement.Implements
             || (model.ClientId.HasValue && rec.ClientId == model.ClientId)
             || model.FreeOrders.HasValue && model.FreeOrders.Value && !rec.ImplementerId.HasValue
             || model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.Выполняется)
+
             .Select(rec => new OrderViewModel
             {
                     Id = rec.Id,
