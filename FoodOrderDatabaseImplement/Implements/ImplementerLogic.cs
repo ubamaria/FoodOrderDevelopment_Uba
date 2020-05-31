@@ -15,19 +15,37 @@ namespace FoodOrderDatabaseImplement.Implements
         {
             using (var context = new FoodOrderDatabase())
             {
-                Implementer element = context.Implementers.FirstOrDefault(rec => rec.Id == model.Id);
+                Implementer element = model.Id.HasValue ? null : new Implementer();
 
-                if (element == null)
+                if (model.Id.HasValue)
                 {
-                    element = new Implementer();
-                    context.Implementers.Add(element);
+                    element = context.Implementers.FirstOrDefault(rec => rec.Id == model.Id);
                 }
+                if (model.Id.HasValue)
+                {
+                    if (element == null)
+                    {
+                        throw new Exception("Элемент не найден");
+                    }
 
-                element.ImplementerFIO = model.ImplementerFIO;
-                element.WorkingTime = model.WorkingTime;
-                element.PauseTime = model.PauseTime;
-
+                    CreateModel(model, element);
+                }
+                else
+                {
+                    context.Implementers.Add(CreateModel(model, element));
+                }
                 context.SaveChanges();
+            }
+        }
+        private Implementer CreateModel(ImplementerBindingModel model, Implementer implementer)
+        {
+            using (var context = new FoodOrderDatabase())
+            {
+                implementer.ImplementerFIO = model.ImplementerFIO;
+                implementer.WorkingTime = model.WorkingTime;
+                implementer.PauseTime = model.PauseTime;
+
+                return implementer;
             }
         }
 
