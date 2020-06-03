@@ -47,6 +47,7 @@
             this.buttonPayOrder = new System.Windows.Forms.Button();
             this.buttonRef = new System.Windows.Forms.Button();
             this.buttonMessages = new System.Windows.Forms.Button();
+            this.создатьБекапToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripFoodOrder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -57,7 +58,8 @@
             this.menuStripFoodOrder.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.справочникиToolStripMenuItem,
             this.отчетыToolStripMenuItem,
-            this.запускРаботToolStripMenuItem});
+            this.запускРаботToolStripMenuItem,
+            this.создатьБекапToolStripMenuItem});
             this.menuStripFoodOrder.Location = new System.Drawing.Point(0, 0);
             this.menuStripFoodOrder.Name = "menuStripFoodOrder";
             this.menuStripFoodOrder.Size = new System.Drawing.Size(1042, 28);
@@ -210,6 +212,13 @@
             this.buttonMessages.UseVisualStyleBackColor = true;
             this.buttonMessages.Click += new System.EventHandler(this.buttonMessages_Click);
             // 
+            // создатьБекапToolStripMenuItem
+            // 
+            this.создатьБекапToolStripMenuItem.Name = "создатьБекапToolStripMenuItem";
+            this.создатьБекапToolStripMenuItem.Size = new System.Drawing.Size(123, 24);
+            this.создатьБекапToolStripMenuItem.Text = "Создать бекап";
+            this.создатьБекапToolStripMenuItem.Click += new System.EventHandler(this.создатьБекапToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -254,5 +263,6 @@
         private System.Windows.Forms.ToolStripMenuItem клиентыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem исполнителиToolStripMenuItem;
         private System.Windows.Forms.Button buttonMessages;
+        private System.Windows.Forms.ToolStripMenuItem создатьБекапToolStripMenuItem;
     }
 }
