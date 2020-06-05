@@ -13,22 +13,27 @@
     <Compile Remove="Migrations\20200319182756_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200319190601_InitialCreate.cs" />
     <Compile Remove="Migrations\20200319190601_InitialCreate.Designer.cs" />
+
     <Compile Remove="Migrations\20200403071608_InitialCreate.cs" />
     <Compile Remove="Migrations\20200403071608_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200403073006_InitialCreate.cs" />
     <Compile Remove="Migrations\20200403073006_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200403080943_InitialCreate2.cs" />
     <Compile Remove="Migrations\20200403080943_InitialCreate2.Designer.cs" />
+    <Compile Remove="Migrations\20200424072204_FirstMig5laba.cs" />
+    <Compile Remove="Migrations\20200424072204_FirstMig5laba.Designer.cs" />
+
     <Compile Remove="Migrations\20200424090753_ImplementersMig.cs" />
     <Compile Remove="Migrations\20200424090753_ImplementersMig.Designer.cs" />
     <Compile Remove="Migrations\20200515081111_MessagesMigration.cs" />
     <Compile Remove="Migrations\20200515081111_MessagesMigration.Designer.cs" />
+
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

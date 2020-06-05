@@ -81,6 +81,7 @@ namespace FoodOrderListImplement.Implements
         }
         private Order CreateModel(OrderBindingModel model, Order Order)
         {
+
             Order.SetId = model.SetId;
             Order.Count = model.Count;
             Order.ClientId = (int)model.ClientId;
@@ -111,6 +112,7 @@ namespace FoodOrderListImplement.Implements
                 SetId = Order.SetId,
                 SetName = SetName,
                 ClientId = Order.ClientId,
+                SetName = SetName,
                 Count = Order.Count,
                 Sum = Order.Sum,
                 Status = Order.Status,
