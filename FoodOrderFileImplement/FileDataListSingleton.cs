@@ -246,26 +246,6 @@ namespace FoodOrderFileImplement
                 xDocument.Save(SetOfDishFileName);
             }
         }
-        private List<Client> LoadClients()
-        {
-            var list = new List<Client>();
-            if (File.Exists(ClientFileName))
-            {
-                XDocument xDocument = XDocument.Load(ClientFileName);
-                var xElements = xDocument.Root.Elements("Client").ToList();
-                foreach (var elem in xElements)
-                {
-                    list.Add(new Client
-                    {
-                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
-                        ClientFIO = elem.Element("ClientFIO").Value,
-                        Email = elem.Element("Email").Value,
-                        Password = elem.Element("Password").Value
-                    });
-                }
-            }
-            return list;
-        }
 
         private void SaveClients()
         {

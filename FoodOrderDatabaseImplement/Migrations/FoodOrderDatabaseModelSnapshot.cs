@@ -15,7 +15,7 @@ namespace FoodOrderDatabaseImplement.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -168,7 +168,6 @@ namespace FoodOrderDatabaseImplement.Migrations
 
             modelBuilder.Entity("FoodOrderDatabaseImplement.Models.Order", b =>
                 {
-
                     b.HasOne("FoodOrderDatabaseImplement.Models.Client", "Client")
                         .WithMany()
                         .HasForeignKey("ClientId")
@@ -176,7 +175,7 @@ namespace FoodOrderDatabaseImplement.Migrations
                         .IsRequired();
 
                     b.HasOne("FoodOrderDatabaseImplement.Models.Implementer", "Implementer")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("ImplementerId");
 
                     b.HasOne("FoodOrderDatabaseImplement.Models.Set", "Set")

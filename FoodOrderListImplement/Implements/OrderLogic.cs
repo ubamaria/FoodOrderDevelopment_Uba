@@ -108,7 +108,6 @@ namespace FoodOrderListImplement.Implements
                 Id = Order.Id,
                 ClientId = Order.ClientId,
                 SetName = SetName,
-                ClientId = Order.ClientId,
                 Count = Order.Count,
                 Sum = Order.Sum,
                 Status = Order.Status,

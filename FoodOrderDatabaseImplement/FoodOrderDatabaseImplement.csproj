@@ -20,9 +20,15 @@
     <Compile Remove="Migrations\20200403073006_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200403080943_InitialCreate2.cs" />
     <Compile Remove="Migrations\20200403080943_InitialCreate2.Designer.cs" />
+    <Compile Remove="Migrations\20200424072204_FirstMig5laba.cs" />
+    <Compile Remove="Migrations\20200424072204_FirstMig5laba.Designer.cs" />
 
     <Compile Remove="Migrations\20200424090753_ImplementersMig.cs" />
     <Compile Remove="Migrations\20200424090753_ImplementersMig.Designer.cs" />
+    <Compile Remove="Migrations\20200515072259_ImplementersMigration.cs" />
+    <Compile Remove="Migrations\20200515072259_ImplementersMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200605084137_MigrationImplementer.cs" />
+    <Compile Remove="Migrations\20200605084137_MigrationImplementer.Designer.cs" />
 
   </ItemGroup>
 
