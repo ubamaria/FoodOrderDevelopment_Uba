@@ -43,17 +43,6 @@ namespace FoodOrderDatabaseImplement.Implements
                 context.SaveChanges();
             }
         }
-        private Implementer CreateModel(ImplementerBindingModel model, Implementer implementer)
-        {
-            using (var context = new FoodOrderDatabase())
-            {
-                implementer.ImplementerFIO = model.ImplementerFIO;
-                implementer.WorkingTime = model.WorkingTime;
-                implementer.PauseTime = model.PauseTime;
-
-                return implementer;
-            }
-        }
 
         public void Delete(ImplementerBindingModel model)
         {
