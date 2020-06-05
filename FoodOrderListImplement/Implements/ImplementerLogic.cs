@@ -4,6 +4,7 @@ using FoodOrderBusinessLogic.ViewModels;
 using FoodOrderListImplement.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace FoodOrderListImplement.Implements
@@ -17,29 +18,31 @@ namespace FoodOrderListImplement.Implements
         }
         public void CreateOrUpdate(ImplementerBindingModel model)
         {
-            Implementer tempImplementer = new Implementer { Id = 1 };
-            bool isImplementerExist = false;
-            foreach (var implementer in source.Implementers)
+            Implementer element = source.Implementers.FirstOrDefault(rec => rec.ImplementerFIO == model.ImplementerFIO && rec.Id != model.Id);
+            if (element != null)
             {
-                if (implementer.Id >= tempImplementer.Id)
-                {
-                    tempImplementer.Id = implementer.Id + 1;
-                }
-                else if (implementer.Id == model.Id)
-                {
-                    tempImplementer = implementer;
-                    isImplementerExist = true;
-                    break;
-                }
+                throw new Exception("Уже есть исполнитель с таким именем");
             }
-            if (isImplementerExist)
+            if (model.Id.HasValue)
             {
-                CreateModel(model, tempImplementer);
+                element = source.Implementers.FirstOrDefault(rec => rec.Id == model.Id);
+                if (model.Id.HasValue)
+                {
+                    if (element == null)
+                    {
+                        throw new Exception("Элемент не найден");
+                    }
+
+                }
             }
             else
             {
-                source.Implementers.Add(CreateModel(model, tempImplementer));
+                element = new Implementer();
+                source.Implementers.Add(element);
             }
+            element.ImplementerFIO = model.ImplementerFIO;
+            element.WorkingTime = model.WorkingTime;
+            element.PauseTime = model.PauseTime;
         }
         public void Delete(ImplementerBindingModel model)
         {
