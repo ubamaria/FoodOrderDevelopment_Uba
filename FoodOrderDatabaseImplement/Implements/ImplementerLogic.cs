@@ -15,25 +15,31 @@ namespace FoodOrderDatabaseImplement.Implements
         {
             using (var context = new FoodOrderDatabase())
             {
-                Implementer element = model.Id.HasValue ? null : new Implementer();
-
+                Implementer element = context.Implementers.FirstOrDefault(rec => rec.ImplementerFIO == model.ImplementerFIO && rec.Id != model.Id);
+                if (element != null)
+                {
+                    throw new Exception("Уже есть исполнитель с таким именем");
+                }
                 if (model.Id.HasValue)
                 {
                     element = context.Implementers.FirstOrDefault(rec => rec.Id == model.Id);
-                }
-                if (model.Id.HasValue)
-                {
-                    if (element == null)
+                    if (model.Id.HasValue)
                     {
-                        throw new Exception("Элемент не найден");
-                    }
+                        if (element == null)
+                        {
+                            throw new Exception("Элемент не найден");
+                        }
 
-                    CreateModel(model, element);
+                    }
                 }
                 else
                 {
-                    context.Implementers.Add(CreateModel(model, element));
+                    element = new Implementer();
+                    context.Implementers.Add(element);
                 }
+                element.ImplementerFIO = model.ImplementerFIO;
+                element.WorkingTime = model.WorkingTime;
+                element.PauseTime = model.PauseTime;
                 context.SaveChanges();
             }
         }
