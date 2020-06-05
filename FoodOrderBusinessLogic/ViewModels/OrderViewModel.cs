@@ -12,7 +12,7 @@ namespace FoodOrderBusinessLogic.ViewModels
     public class OrderViewModel : BaseViewModel
     {
         [DataMember] 
-        public int ClientId { get; set; }
+        public int? ClientId { get; set; }
         [DataMember]
         [DisplayName("Набор")]
         [Column(title: "Набор", gridViewAutoSize: GridViewAutoSize.Fill)]
