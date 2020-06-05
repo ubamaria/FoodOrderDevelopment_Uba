@@ -1,4 +1,5 @@
 ﻿using FoodOrderBusinessLogic.BindingModels;
+using FoodOrderBusinessLogic.Enums;
 using FoodOrderBusinessLogic.Interfaces;
 using FoodOrderBusinessLogic.ViewModels;
 using FoodOrderFileImplement.Models;
@@ -40,7 +41,8 @@ namespace FoodOrderFileImplement.Implements
                 element.Status = model.Status;
                 element.DateCreate = model.DateCreate;
                 element.DateImplement = model.DateImplement;
-            }
+            element.ImplementerId = model.ImplementerId;
+        }
             public void Delete(OrderBindingModel model)
             {
                 Order element = source.Orders.FirstOrDefault(rec => rec.Id ==
@@ -58,13 +60,18 @@ namespace FoodOrderFileImplement.Implements
             {
                 return source.Orders
                 .Where(rec => model == null || rec.Id == model.Id || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
-            || model.ClientId.HasValue && rec.ClientId == model.ClientId)
+            || (model.ClientId.HasValue && rec.ClientId == model.ClientId)
+            || model.FreeOrders.HasValue && model.FreeOrders.Value && !rec.ImplementerId.HasValue
+            || model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.Выполняется)
+
             .Select(rec => new OrderViewModel
             {
                     Id = rec.Id,
                     SetName = GetSetName(rec.SetId),
                 ClientId = rec.ClientId,
                 ClientFIO = source.Clients.FirstOrDefault(recC => recC.Id == rec.ClientId)?.ClientFIO,
+                ImplementerId = rec.ImplementerId,
+                ImplementerFIO = source.Implementers.FirstOrDefault(recC => recC.Id == rec.ImplementerId)?.ImplementerFIO,
                 Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,

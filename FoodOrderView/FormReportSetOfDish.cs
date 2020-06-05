@@ -42,7 +42,7 @@ namespace FoodOrderView
                 {
                     try
                     {
-                        logic.SaveSetOfDishToPdfFile(new ReportBindingModel
+                        logic.SaveSetsToPdfFile(new ReportBindingModel
                         {
                             FileName = dialog.FileName,
                         });
