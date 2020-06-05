@@ -18,28 +18,33 @@ namespace FoodOrderListImplement.Implements
         }
         public void CreateOrUpdate(ImplementerBindingModel model)
         {
-                Implementer tempImplementer = model.Id.HasValue ? null : new Implementer();
-
-                if (model.Id.HasValue)
+                Implementer element = source.Implementers.FirstOrDefault(rec => rec.ImplementerFIO == model.ImplementerFIO && rec.Id != model.Id);
+                if (element != null)
                 {
-                    tempImplementer = source.Implementers.FirstOrDefault(rec => rec.ImplementerFIO == model.ImplementerFIO && rec.Id == model.Id);
+                    throw new Exception("Уже есть исполнитель с таким именем");
                 }
-
                 if (model.Id.HasValue)
                 {
-                    if (tempImplementer == null)
+                    element = source.Implementers.FirstOrDefault(rec => rec.Id == model.Id);
+                    if (model.Id.HasValue)
                     {
-                        throw new Exception("Элемент не найден");
-                    }
+                        if (element == null)
+                        {
+                            throw new Exception("Элемент не найден");
+                        }
 
-                    CreateModel(model, tempImplementer);
+                    }
                 }
                 else
                 {
-                source.Implementers.Add(CreateModel(model, tempImplementer));
+                    element = new Implementer();
+                source.Implementers.Add(element);
                 }
-            }
-        
+                element.ImplementerFIO = model.ImplementerFIO;
+                element.WorkingTime = model.WorkingTime;
+                element.PauseTime = model.PauseTime;
+        }
+
         public void Delete(ImplementerBindingModel model)
         {
             for (int i = 0; i < source.Implementers.Count; ++i)
