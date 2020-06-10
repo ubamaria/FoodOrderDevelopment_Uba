@@ -17,7 +17,6 @@ namespace FoodOrderClientView
         static void Main()
         {
             APIClient.Connect();
-            //Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
