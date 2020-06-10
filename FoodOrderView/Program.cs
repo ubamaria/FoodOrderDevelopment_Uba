@@ -57,6 +57,8 @@ HierarchicalLifetimeManager());
             currentContainer.RegisterType<ReportLogic>(new
 HierarchicalLifetimeManager());
             currentContainer.RegisterType<IMessageInfoLogic, MessageInfoLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<WorkModeling>(new
+HierarchicalLifetimeManager());
             currentContainer.RegisterType<IImplementerLogic, ImplementerLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<WorkModeling>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<BackUpAbstractLogic, BackUpLogic>(new HierarchicalLifetimeManager());

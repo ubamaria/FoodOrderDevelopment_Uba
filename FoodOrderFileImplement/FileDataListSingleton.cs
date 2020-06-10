@@ -26,6 +26,7 @@ namespace FoodOrderFileImplement
         public List<Client> Clients { get; set; }
         public List<Implementer> Implementers { get; set; }
         public List<MessageInfo> MessageInfoes { get; set; }
+
         private FileDataListSingleton()
         {
             Dishes = LoadDishes();
@@ -94,6 +95,7 @@ namespace FoodOrderFileImplement
                         DateImplement =
                    string.IsNullOrEmpty(elem.Element("DateImplement").Value) ? (DateTime?)null :
                    Convert.ToDateTime(elem.Element("DateImplement").Value),
+                        ClientId = Convert.ToInt32(elem.Element("ClientId").Value),
                     });
                 }
             }
@@ -233,7 +235,8 @@ namespace FoodOrderFileImplement
                     new XElement("Sum", order.Sum),
                     new XElement("Status", order.Status),
                     new XElement("DateCreate", order.DateCreate),
-                    new XElement("DateImplement", order.DateImplement)));
+                    new XElement("DateImplement", order.DateImplement),
+                    new XElement("ClientId", order.ClientId)));
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(OrderFileName);
@@ -272,6 +275,7 @@ namespace FoodOrderFileImplement
                 xDocument.Save(SetOfDishFileName);
             }
         }
+
         private void SaveClients()
         {
             if (Clients != null)
