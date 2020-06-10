@@ -43,7 +43,7 @@ namespace FoodOrderBusinessLogic.BusinessLogics
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
-            if (!storageLogic.CheckFoodsAvailability(order.SetId, order.Count))
+            if (!storageLogic.CheckDishesAvailability(order.SetId, order.Count))
             {
                 throw new Exception("Недостаточно блюд на складе");
             }
