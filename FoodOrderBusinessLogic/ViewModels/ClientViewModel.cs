@@ -12,7 +12,7 @@ namespace FoodOrderBusinessLogic.ViewModels
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        [DisplayName("ФИО клиента")]
+        [DisplayName("ФИО")]
         public string ClientFIO { get; set; }
         [DataMember]
         [DisplayName("Логин")]
