@@ -7,8 +7,14 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200319182756_InitialCreate.cs" />
     <Compile Remove="Migrations\20200319182756_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200424071730_FirstMig.cs" />
+    <Compile Remove="Migrations\20200424071730_FirstMig.Designer.cs" />
     <Compile Remove="Migrations\20200524135410_StorageMigration.cs" />
     <Compile Remove="Migrations\20200524135410_StorageMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200524135638_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200524135638_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200611093537_Mig1.cs" />
+    <Compile Remove="Migrations\20200611093537_Mig1.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

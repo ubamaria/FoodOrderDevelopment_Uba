@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodOrderDatabaseImplement.Migrations
 {
-    public partial class FirstMig : Migration
+    public partial class Mig1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,6 +32,19 @@ namespace FoodOrderDatabaseImplement.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sets", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Storages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StorageName = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Storages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,6 +98,33 @@ namespace FoodOrderDatabaseImplement.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "StorageDishes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StorageId = table.Column<int>(nullable: false),
+                    DishId = table.Column<int>(nullable: false),
+                    Count = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StorageDishes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StorageDishes_Dishes_DishId",
+                        column: x => x.DishId,
+                        principalTable: "Dishes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StorageDishes_Storages_StorageId",
+                        column: x => x.StorageId,
+                        principalTable: "Storages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_SetId",
                 table: "Orders",
@@ -99,6 +139,16 @@ namespace FoodOrderDatabaseImplement.Migrations
                 name: "IX_SetOfDishes_SetId",
                 table: "SetOfDishes",
                 column: "SetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StorageDishes_DishId",
+                table: "StorageDishes",
+                column: "DishId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StorageDishes_StorageId",
+                table: "StorageDishes",
+                column: "StorageId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -110,10 +160,16 @@ namespace FoodOrderDatabaseImplement.Migrations
                 name: "SetOfDishes");
 
             migrationBuilder.DropTable(
-                name: "Dishes");
+                name: "StorageDishes");
 
             migrationBuilder.DropTable(
                 name: "Sets");
+
+            migrationBuilder.DropTable(
+                name: "Dishes");
+
+            migrationBuilder.DropTable(
+                name: "Storages");
         }
     }
 }
