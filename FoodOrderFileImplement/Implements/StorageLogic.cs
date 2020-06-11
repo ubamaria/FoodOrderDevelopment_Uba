@@ -125,9 +125,8 @@ namespace FoodOrderFileImplement.Implements
             }
         }
 
-        public bool CheckFoodsAvailability(int SetId, int SetsCount)
+        public bool CheckDishesAvailability(int SetId, int SetsCount)
         {
-            bool result = true;
             var SetOfDishes = source.SetOfDishes.Where(x => x.SetId == SetId);
             if (SetOfDishes.Count() == 0) return false;
             foreach (var elem in SetOfDishes)
@@ -138,7 +137,7 @@ namespace FoodOrderFileImplement.Implements
                 if (count < elem.Count * SetsCount)
                     return false;
             }
-            return result;
+            return true;
         }
 
         public void RemoveFromStorage(int SetId, int SetsCount)
