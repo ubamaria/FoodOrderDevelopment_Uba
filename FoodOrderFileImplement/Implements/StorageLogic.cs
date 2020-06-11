@@ -125,19 +125,20 @@ namespace FoodOrderFileImplement.Implements
             }
         }
 
-        public void CheckDishesAvailability(int SetId, int SetsCount)
-        {
+        public bool CheckDishesAvailability(int SetId, int SetsCount)
+        {     
             var SetOfDishes = source.SetOfDishes.Where(x => x.SetId == SetId);
             if (SetOfDishes.Count() == 0) 
-                return;
+                return false;
             foreach (var elem in SetOfDishes)
             {
                 int count = 0;
                 var storageDishes = source.StorageDishes.FindAll(x => x.DishId == elem.DishId);
                 count = storageDishes.Sum(x => x.Count);
                 if (count < elem.Count * SetsCount)
-                    return;
+                    return false;
             }
+            return true;
         }
 
         public void RemoveFromStorage(int SetId, int SetsCount)

@@ -14,7 +14,7 @@ namespace FoodOrderBusinessLogic.Interfaces
         void UpdElement(StorageBindingModel model);
         void DelElement(int id);
         void FillStorage(StorageDishBindingModel model);
-        void CheckDishesAvailability(int SetId, int SetsCount);
+        bool CheckDishesAvailability(int SetId, int SetsCount);
         void RemoveFromStorage(int SetId, int SetsCount);
     }
 }
