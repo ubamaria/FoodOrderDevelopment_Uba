@@ -10,6 +10,8 @@ namespace FoodOrderDatabaseImplement.Models
 
         [Required] public string DishName { get; set; }
 
-        [ForeignKey("DishId")] public virtual List<SetOfDish> SetOfDishes { get; set; }
+        [ForeignKey("DishId")] 
+        public virtual List<SetOfDish> SetOfDishes { get; set; }
+        public virtual List<StorageDish> StorageDishes { get; set; }
     }
 }
