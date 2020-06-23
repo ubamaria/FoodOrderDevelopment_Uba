@@ -65,10 +65,11 @@ namespace FoodOrderListImplement.Implements
             {
                 if (model != null)
                 {
-                    if (Order.Id == model.Id || (model.DateFrom.HasValue && model.DateTo.HasValue && Order.DateCreate >= model.DateFrom && Order.DateCreate <= model.DateTo)
-                        || model.ClientId.HasValue && Order.ClientId == model.ClientId
-                        || model.FreeOrders.HasValue && model.FreeOrders.Value
-                    || model.ImplementerId.HasValue && Order.ImplementerId == model.ImplementerId && Order.Status == OrderStatus.Выполняется)
+                    if ((model.Id.HasValue && Order.Id == model.Id)
+                       || (model.DateFrom.HasValue && model.DateTo.HasValue && Order.DateCreate >= model.DateFrom && Order.DateCreate <= model.DateTo)
+                       || (Order.ClientId == model.ClientId)
+                       || (model.FreeOrders.HasValue && model.FreeOrders.Value && !Order.ImplementerId.HasValue)
+                       || (model.ImplementerId.HasValue && Order.ImplementerId == model.ImplementerId && Order.Status == OrderStatus.Выполняется))
                     {
                         result.Add(CreateViewModel(Order));
                         break;
@@ -81,7 +82,37 @@ namespace FoodOrderListImplement.Implements
         }
         private Order CreateModel(OrderBindingModel model, Order Order)
         {
-
+            Set Set = null;
+            foreach (Set s in source.Sets)
+            {
+                if (s.Id == model.SetId)
+                {
+                    Set = s;
+                    break;
+                }
+            }
+            Client client = null;
+            foreach (Client c in source.Clients)
+            {
+                if (c.Id == model.ClientId)
+                {
+                    client = c;
+                    break;
+                }
+            }
+            Implementer implementer = null;
+            foreach (Implementer i in source.Implementers)
+            {
+                if (i.Id == model.ImplementerId)
+                {
+                    implementer = i;
+                    break;
+                }
+            }
+            if (Set == null || client == null || model.ImplementerId.HasValue && implementer == null)
+            {
+                throw new Exception("Элемент не найден");
+            }
             Order.SetId = model.SetId;
             Order.Count = model.Count;
             Order.ClientId = (int)model.ClientId;
@@ -93,24 +124,42 @@ namespace FoodOrderListImplement.Implements
         }
         private OrderViewModel CreateViewModel(Order Order)
         {
-            string SetName = null;
-            foreach (var set in source.Sets)
+            Set Set = null;
+            foreach (Set set in source.Sets)
             {
                 if (set.Id == Order.SetId)
                 {
-                    SetName = set.SetName;
+                    Set = set;
                 }
             }
 
-            if (SetName == null)
+            Client client = null;
+            foreach (Client c in source.Clients)
             {
-                throw new Exception("Продукт не найден");
+                if (c.Id == Order.ClientId)
+                {
+                    client = c;
+                    break;
+                }
+            }
+            Implementer implementer = null;
+            foreach (Implementer i in source.Implementers)
+            {
+                if (i.Id == Order.ImplementerId)
+                {
+                    implementer = i;
+                    break;
+                }
+            }
+            if (Set == null || client == null || Order.ImplementerId.HasValue && implementer == null)
+            {
+                throw new Exception("Набор не найден");
             }
             return new OrderViewModel
             {
                 Id = Order.Id,
                 SetId = Order.SetId,
-                SetName = SetName,
+                SetName = Set.SetName,
                 ClientId = Order.ClientId,
                 Count = Order.Count,
                 Sum = Order.Sum,

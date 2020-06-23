@@ -20,6 +20,8 @@
     <Compile Remove="Migrations\20200403073006_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200403080943_InitialCreate2.cs" />
     <Compile Remove="Migrations\20200403080943_InitialCreate2.Designer.cs" />
+    <Compile Remove="Migrations\20200424071730_FirstMig.cs" />
+    <Compile Remove="Migrations\20200424071730_FirstMig.Designer.cs" />
     <Compile Remove="Migrations\20200424072204_FirstMig5laba.cs" />
     <Compile Remove="Migrations\20200424072204_FirstMig5laba.Designer.cs" />
 
@@ -27,6 +29,12 @@
     <Compile Remove="Migrations\20200424090753_ImplementersMig.Designer.cs" />
     <Compile Remove="Migrations\20200515081111_MessagesMigration.cs" />
     <Compile Remove="Migrations\20200515081111_MessagesMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200605084325_MigrationImplementer.cs" />
+    <Compile Remove="Migrations\20200605084325_MigrationImplementer.Designer.cs" />
+    <Compile Remove="Migrations\20200623124233_Mig.cs" />
+    <Compile Remove="Migrations\20200623124233_Mig.Designer.cs" />
+    <Compile Remove="Migrations\20200623124541_Mig.cs" />
+    <Compile Remove="Migrations\20200623124541_Mig.Designer.cs" />
 
   </ItemGroup>
 

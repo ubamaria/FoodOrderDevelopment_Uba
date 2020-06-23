@@ -67,12 +67,12 @@ namespace FoodOrderView
                 if (setOfDishes != null)
                 {
                     dataGridView.Rows.Clear();
-                    foreach (var pc in setOfDishes)
+                    foreach (var sf in setOfDishes)
                     {
-                        dataGridView.Rows.Add(new object[] { pc.Key, pc.Value.Item1,
-pc.Value.Item2 });
+                        dataGridView.Rows.Add(new object[] { sf.Key, sf.Value.Item1, sf.Value.Item2 });
                     }
                 }
+
             }
             catch (Exception ex)
             {
