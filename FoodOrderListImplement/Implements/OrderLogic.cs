@@ -65,10 +65,11 @@ namespace FoodOrderListImplement.Implements
             {
                 if (model != null)
                 {
-                    if (Order.Id == model.Id || (model.DateFrom.HasValue && model.DateTo.HasValue && Order.DateCreate >= model.DateFrom && Order.DateCreate <= model.DateTo)
-                        || model.ClientId.HasValue && Order.ClientId == model.ClientId
-                        || model.FreeOrders.HasValue && model.FreeOrders.Value
-                    || model.ImplementerId.HasValue && Order.ImplementerId == model.ImplementerId && Order.Status == OrderStatus.Выполняется)
+                    if ((model.Id.HasValue && Order.Id == model.Id)
+                        || (model.DateFrom.HasValue && model.DateTo.HasValue && Order.DateCreate >= model.DateFrom && Order.DateCreate <= model.DateTo)
+                        || (Order.ClientId == model.ClientId)
+                        || (model.FreeOrders.HasValue && model.FreeOrders.Value && !Order.ImplementerId.HasValue)
+                        || (model.ImplementerId.HasValue && Order.ImplementerId == model.ImplementerId && Order.Status == OrderStatus.Выполняется))
                     {
                         result.Add(CreateViewModel(Order));
                         break;

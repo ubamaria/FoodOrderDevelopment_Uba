@@ -15,11 +15,11 @@ namespace FoodOrderBusinessLogic.ViewModels
         [Column(title: "ФИО исполнителя", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string ImplementerFIO { get; set; }
         [DataMember]
-        [DisplayName("Время на заказ")] [Column(title: "Время на заказ", width: 50)] 
+        [DisplayName("Время на заказ")] [Column(title: "Время на заказ", width: 100)] 
         public int WorkingTime { get; set; }
         [DataMember]
         [DisplayName("Время на перерыв")]
-        [Column(title: "Время на перерыв", width: 50)] 
+        [Column(title: "Время на перерыв", width: 100)] 
         public int PauseTime { get; set; }
         public override List<string> Properties() => new List<string>
         {

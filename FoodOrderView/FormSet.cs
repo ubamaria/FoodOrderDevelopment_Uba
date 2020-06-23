@@ -64,7 +64,14 @@ namespace FoodOrderView
         {
             try
             {
-                Program.ConfigGrid(logic.Read(null), dataGridView);
+                if (setOfDishes != null)
+                {
+                    dataGridView.Rows.Clear();
+                    foreach (var sf in setOfDishes)
+                    {
+                        dataGridView.Rows.Add(new object[] { sf.Key, sf.Value.Item1, sf.Value.Item2 });
+                    }
+                }
 
             }
             catch (Exception ex)

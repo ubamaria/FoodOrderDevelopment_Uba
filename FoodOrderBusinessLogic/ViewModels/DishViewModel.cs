@@ -12,7 +12,7 @@ namespace FoodOrderBusinessLogic.ViewModels
     {
         [DataMember]
         [DisplayName("Название блюда")]
-        [Column(title: "Название блюда", width: 150)]
+        [Column(title: "Название блюда", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string DishName { get; set; }
         public override List<string> Properties() => new List<string>
         {
