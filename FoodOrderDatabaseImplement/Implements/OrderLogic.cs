@@ -69,6 +69,7 @@ model.Id);
             .Select(rec => new OrderViewModel
             {
                 Id = rec.Id,
+                SetId = rec.SetId,
                 SetName = rec.Set.SetName,
                 Count = rec.Count,
                 Sum = rec.Sum,

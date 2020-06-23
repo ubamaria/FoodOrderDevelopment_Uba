@@ -10,12 +10,16 @@ namespace FoodOrderListImplement
         public List<Order> Orders { get; set; }
         public List<Set> Sets { get; set; }
         public List<SetOfDish> SetOfDishes { get; set; }
+        public List<Storage> Storages { get; set; }
+        public List<StorageDish> StorageDishes { get; set; }
         private DataListSingleton()
         {
             Dishes = new List<Dish>();
             Orders = new List<Order>();
             Sets = new List<Set>();
             SetOfDishes = new List<SetOfDish>();
+            Storages = new List<Storage>();
+            StorageDishes = new List<StorageDish>();
         }
         public static DataListSingleton GetInstance()
         {

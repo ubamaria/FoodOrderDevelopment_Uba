@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodOrderDatabaseImplement.Migrations
 {
     [DbContext(typeof(FoodOrderDatabase))]
-    [Migration("20200319190601_InitialCreate")]
+    [Migration("20200524135638_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -69,7 +69,7 @@ namespace FoodOrderDatabaseImplement.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("FoodOrderImplement.Models.Set", b =>
+            modelBuilder.Entity("FoodOrderDatabaseImplement.Models.Set", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +88,7 @@ namespace FoodOrderDatabaseImplement.Migrations
                     b.ToTable("Sets");
                 });
 
-            modelBuilder.Entity("FoodOrderImplement.Models.SetOfDish", b =>
+            modelBuilder.Entity("FoodOrderDatabaseImplement.Models.SetOfDish", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,16 +113,57 @@ namespace FoodOrderDatabaseImplement.Migrations
                     b.ToTable("SetOfDishes");
                 });
 
+            modelBuilder.Entity("FoodOrderDatabaseImplement.Models.Storage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("StorageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Storages");
+                });
+
+            modelBuilder.Entity("FoodOrderDatabaseImplement.Models.StorageDish", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DishId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StorageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DishId");
+
+                    b.HasIndex("StorageId");
+
+                    b.ToTable("StorageDishes");
+                });
+
             modelBuilder.Entity("FoodOrderDatabaseImplement.Models.Order", b =>
                 {
-                    b.HasOne("FoodOrderImplement.Models.Set", "Set")
+                    b.HasOne("FoodOrderDatabaseImplement.Models.Set", "Set")
                         .WithMany("Orders")
                         .HasForeignKey("SetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FoodOrderImplement.Models.SetOfDish", b =>
+            modelBuilder.Entity("FoodOrderDatabaseImplement.Models.SetOfDish", b =>
                 {
                     b.HasOne("FoodOrderDatabaseImplement.Models.Dish", "Dish")
                         .WithMany("SetOfDishes")
@@ -130,9 +171,24 @@ namespace FoodOrderDatabaseImplement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FoodOrderImplement.Models.Set", "Set")
+                    b.HasOne("FoodOrderDatabaseImplement.Models.Set", "Set")
                         .WithMany("SetOfDishes")
                         .HasForeignKey("SetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FoodOrderDatabaseImplement.Models.StorageDish", b =>
+                {
+                    b.HasOne("FoodOrderDatabaseImplement.Models.Dish", "Dish")
+                        .WithMany()
+                        .HasForeignKey("DishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FoodOrderDatabaseImplement.Models.Storage", "Storage")
+                        .WithMany("StorageDishes")
+                        .HasForeignKey("StorageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
