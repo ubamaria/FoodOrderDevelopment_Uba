@@ -23,10 +23,12 @@ namespace FoodOrderClientView
                 dataGridView.DataSource = APIClient.GetRequest<List<OrderViewModel>>($"api/main/getorders?clientId={Program.Client.Id}");
                 dataGridView.Columns[0].Visible = false;
                 dataGridView.Columns[1].Visible = false;
-                dataGridView.Columns[2].Visible = false;
+                dataGridView.Columns[2].Visible = true;
                 dataGridView.Columns[3].Visible = false;
                 dataGridView.Columns[4].Visible = false;
                 dataGridView.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView.Columns[11].Visible = false;
+
             }
             catch (Exception ex)
             {
