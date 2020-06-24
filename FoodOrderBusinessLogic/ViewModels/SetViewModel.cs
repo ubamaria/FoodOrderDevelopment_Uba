@@ -9,7 +9,7 @@ namespace FoodOrderBusinessLogic.ViewModels
     {
         public int Id { get; set; }
 
-        [DisplayName("Название блюда")]
+        [DisplayName("Название набора")]
         public string SetName { get; set; }
 
         [DisplayName("Цена")]
