@@ -7,7 +7,7 @@ namespace FoodOrderListImplement.Models
 {
     public class MessageInfo
     {
-        [Key] public string MessageId { get; set; }
+        public string MessageId { get; set; }
 
         public int? ClientId { get; set; }
 

@@ -15,5 +15,7 @@ namespace FoodOrderDatabaseImplement.Models
         [Required]
         public string Password { get; set; }
         public virtual List<MessageInfo> Messages { get; set; }
+        public virtual List<Order> Orders { get; set; }
+
     }
 }
