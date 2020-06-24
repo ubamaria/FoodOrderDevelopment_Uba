@@ -17,7 +17,7 @@ namespace FoodOrderFileImplement.Implements
         {
             source = FileDataListSingleton.GetInstance();
         }
-        public void CreateOrUpdate(ImplementerBindingModel model)
+        public void CreateOrUpdate(ImplementerBindC:\Users\Убочка\source\repos\FoodOrder\FoodOrderFileImplement\Implements\ImplementerLogic.csingModel model)
         {
                 Implementer element = source.Implementers.FirstOrDefault(rec => rec.ImplementerFIO == model.ImplementerFIO && rec.Id != model.Id);
                 if (element != null)
