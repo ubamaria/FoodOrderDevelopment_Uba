@@ -22,7 +22,8 @@ namespace FoodOrderRestApi.Controllers
             _messageLogic = messageLogic;
         }
         [HttpGet]
-        public ClientViewModel Login(string login, string password)
+        public ClientViewModel Login(string login, string password) => _logic.Read(new
+ClientBindingModel
         {
             Email = login,
             Password = password
