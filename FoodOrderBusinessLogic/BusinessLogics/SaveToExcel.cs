@@ -63,29 +63,52 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                     CellToName = "E1"
                 });
                 uint rowIndex = 2;
-                foreach (var date in info.Orders)
+                if (info.Orders != null)
                 {
-                    decimal sum = 0;
-                    InsertCellInWorksheet(new ExcelCellParameters
+                    foreach (var date in info.Orders)
                     {
-                        Worksheet = worksheetPart.Worksheet,
-                        ShareStringPart = shareStringPart,
-                        ColumnName = "A",
-                        RowIndex = rowIndex,
-                        Text = date.Key.ToShortDateString(),
-                        StyleIndex = 0U
-                    });
-                    rowIndex++;
-                    foreach (var order in date)
-                    {
+                        decimal sum = 0;
                         InsertCellInWorksheet(new ExcelCellParameters
                         {
                             Worksheet = worksheetPart.Worksheet,
                             ShareStringPart = shareStringPart,
-                            ColumnName = "B",
+                            ColumnName = "A",
                             RowIndex = rowIndex,
-                            Text = order.SetName,
-                            StyleIndex = 1U
+                            Text = date.Key.ToShortDateString(),
+                            StyleIndex = 0U
+                        });
+                        rowIndex++;
+                        foreach (var order in date)
+                        {
+                            InsertCellInWorksheet(new ExcelCellParameters
+                            {
+                                Worksheet = worksheetPart.Worksheet,
+                                ShareStringPart = shareStringPart,
+                                ColumnName = "B",
+                                RowIndex = rowIndex,
+                                Text = order.SetName,
+                                StyleIndex = 1U
+                            });
+                            InsertCellInWorksheet(new ExcelCellParameters
+                            {
+                                Worksheet = worksheetPart.Worksheet,
+                                ShareStringPart = shareStringPart,
+                                ColumnName = "C",
+                                RowIndex = rowIndex,
+                                Text = order.Sum.ToString(),
+                                StyleIndex = 1U
+                            });
+                            sum += order.Sum;
+                            rowIndex++;
+                        }
+                        InsertCellInWorksheet(new ExcelCellParameters
+                        {
+                            Worksheet = worksheetPart.Worksheet,
+                            ShareStringPart = shareStringPart,
+                            ColumnName = "A",
+                            RowIndex = rowIndex,
+                            Text = "Итого",
+                            StyleIndex = 0U
                         });
                         InsertCellInWorksheet(new ExcelCellParameters
                         {
@@ -93,40 +116,81 @@ namespace FoodOrderBusinessLogic.BusinessLogics
                             ShareStringPart = shareStringPart,
                             ColumnName = "C",
                             RowIndex = rowIndex,
-                            Text = order.Sum.ToString(),
-                            StyleIndex = 1U
+                            Text = sum.ToString(),
+                            StyleIndex = 0U
                         });
-                        sum += order.Sum;
                         rowIndex++;
                     }
-                    InsertCellInWorksheet(new ExcelCellParameters
+                    workbookpart.Workbook.Save();
+                }
+                else
+                {
+                    foreach (var storage in info.Storages)
                     {
-                        Worksheet = worksheetPart.Worksheet,
-                        ShareStringPart = shareStringPart,
-                        ColumnName = "A",
-                        RowIndex = rowIndex,
-                        Text = "Итого",
-                        StyleIndex = 0U
-                    });
-                    InsertCellInWorksheet(new ExcelCellParameters
-                    {
-                        Worksheet = worksheetPart.Worksheet,
-                        ShareStringPart = shareStringPart,
-                        ColumnName = "C",
-                        RowIndex = rowIndex,
-                        Text = sum.ToString(),
-                        StyleIndex = 0U
-                    });
-                    rowIndex++;
+                        int dishesSum = 0;
+                        InsertCellInWorksheet(new ExcelCellParameters
+                        {
+                            Worksheet = worksheetPart.Worksheet,
+                            ShareStringPart = shareStringPart,
+                            ColumnName = "A",
+                            RowIndex = rowIndex,
+                            Text = storage.StorageName,
+                            StyleIndex = 0U
+                        });
+                        rowIndex++;
+                        foreach (var dishes in storage.StorageDishes)
+                        {
+                            InsertCellInWorksheet(new ExcelCellParameters
+                            {
+                                Worksheet = worksheetPart.Worksheet,
+                                ShareStringPart = shareStringPart,
+                                ColumnName = "B",
+                                RowIndex = rowIndex,
+                                Text = dishes.DishName,
+                                StyleIndex = 1U
+                            });
+
+                            InsertCellInWorksheet(new ExcelCellParameters
+                            {
+                                Worksheet = worksheetPart.Worksheet,
+                                ShareStringPart = shareStringPart,
+                                ColumnName = "C",
+                                RowIndex = rowIndex,
+                                Text = dishes.Count.ToString(),
+                                StyleIndex = 1U
+                            });
+                            dishesSum += dishes.Count;
+                            rowIndex++;
+                        }
+                        InsertCellInWorksheet(new ExcelCellParameters
+                        {
+                            Worksheet = worksheetPart.Worksheet,
+                            ShareStringPart = shareStringPart,
+                            ColumnName = "A",
+                            RowIndex = rowIndex,
+                            Text = "Итого",
+                            StyleIndex = 0U
+                        });
+                        InsertCellInWorksheet(new ExcelCellParameters
+                        {
+                            Worksheet = worksheetPart.Worksheet,
+                            ShareStringPart = shareStringPart,
+                            ColumnName = "C",
+                            RowIndex = rowIndex,
+                            Text = dishesSum.ToString(),
+                            StyleIndex = 0U
+                        });
+                        rowIndex++;
+                    }
                 }
                 workbookpart.Workbook.Save();
             }
         }
-        /// <summary>
-        /// Настройка стилей для файла
-        /// </summary>
-        /// <param name="workbookpart"></param>
-        private static void CreateStyles(WorkbookPart workbookpart)
+    /// <summary>
+    /// Настройка стилей для файла
+    /// </summary>
+    /// <param name="workbookpart"></param>
+    private static void CreateStyles(WorkbookPart workbookpart)
         {
             WorkbookStylesPart sp = workbookpart.AddNewPart<WorkbookStylesPart>();
             sp.Stylesheet = new Stylesheet();

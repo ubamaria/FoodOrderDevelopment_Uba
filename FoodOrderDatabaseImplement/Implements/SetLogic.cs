@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FoodOrderDatabaseImplement.Implement
+namespace FoodOrderDatabaseImplement.Implements
 {
     public class SetLogic : ISetLogic
     {
@@ -89,7 +89,7 @@ namespace FoodOrderDatabaseImplement.Implement
                 {
                     try
                     {
-                        // удаяем записи по компонентам при удалении изделия
+                        // удаляем записи по компонентам при удалении изделия
                         context.SetOfDishes.RemoveRange(context.SetOfDishes.Where(rec =>
                         rec.SetId == model.Id));
                         Set element = context.Sets.FirstOrDefault(rec => rec.Id == model.Id);

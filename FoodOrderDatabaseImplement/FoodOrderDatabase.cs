@@ -17,5 +17,7 @@ namespace FoodOrderDatabaseImplement
         public virtual DbSet<Set> Sets { set; get; }
         public virtual DbSet<SetOfDish> SetOfDishes { set; get; }
         public virtual DbSet<Order> Orders { set; get; }
+        public virtual DbSet<Storage> Storages { set; get; }
+        public virtual DbSet<StorageDish> StorageDishes { set; get; }
     }
 }

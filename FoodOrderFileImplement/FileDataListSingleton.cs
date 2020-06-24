@@ -15,16 +15,23 @@ namespace FoodOrderFileImplement
         private readonly string OrderFileName = "Order.xml";
         private readonly string SetFileName = "Set.xml";
         private readonly string SetOfDishFileName = "SetOfDish.xml";
+        private readonly string StorageFileName = "Storage.xml";
+        private readonly string StorageDishFileName = "StorageDish.xml";
+
         public List<Dish> Dishes { get; set; }
         public List<Order> Orders { get; set; }
         public List<Set> Sets { get; set; }
         public List<SetOfDish> SetOfDishes { get; set; }
+        public List<Storage> Storages { set; get; }
+        public List<StorageDish> StorageDishes { set; get; }
         private FileDataListSingleton()
         {
             Dishes = LoadDishes();
             Orders = LoadOrders();
             Sets = LoadSets();
             SetOfDishes = LoadSetOfDishes();
+            Storages = LoadStorages();
+            StorageDishes = LoadStorageDishes();
         }
         public static FileDataListSingleton GetInstance()
         {
@@ -40,6 +47,8 @@ namespace FoodOrderFileImplement
             SaveOrders();
             SaveSets();
             SaveSetOfDishes();
+            SaveStorages();
+            SaveStorageDishes();
         }
         private List<Dish> LoadDishes()
         {
@@ -124,6 +133,45 @@ namespace FoodOrderFileImplement
             }
             return list;
         }
+        private List<Storage> LoadStorages()
+        {
+            var list = new List<Storage>();
+            if (File.Exists(StorageFileName))
+            {
+                XDocument xDocument = XDocument.Load(StorageFileName);
+                var xElements = xDocument.Root.Elements("Storage").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new Storage()
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        StorageName = elem.Element("StorageName").Value.ToString()
+                    });
+                }
+            }
+            return list;
+        }
+
+        private List<StorageDish> LoadStorageDishes()
+        {
+            var list = new List<StorageDish>();
+            if (File.Exists(StorageDishFileName))
+            {
+                XDocument xDocument = XDocument.Load(StorageDishFileName);
+                var xElements = xDocument.Root.Elements("StorageDish").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new StorageDish()
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        DishId = Convert.ToInt32(elem.Element("DishId").Value),
+                        StorageId = Convert.ToInt32(elem.Element("StorageId").Value),
+                        Count = Convert.ToInt32(elem.Element("Count").Value)
+                    });
+                }
+            }
+            return list;
+        }
         private void SaveDishes()
         {
             if (Dishes != null)
@@ -192,6 +240,37 @@ namespace FoodOrderFileImplement
                 xDocument.Save(SetOfDishFileName);
             }
         }
-
+        private void SaveStorages()
+        {
+            if (Storages != null)
+            {
+                var xElement = new XElement("Storages");
+                foreach (var elem in Storages)
+                {
+                    xElement.Add(new XElement("Storage",
+                        new XAttribute("Id", elem.Id),
+                        new XElement("StorageName", elem.StorageName)));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(StorageFileName);
+            }
+        }
+        private void SaveStorageDishes()
+        {
+            if (StorageDishes != null)
+            {
+                var xElement = new XElement("StorageDishes");
+                foreach (var elem in StorageDishes)
+                {
+                    xElement.Add(new XElement("StorageDish",
+                        new XAttribute("Id", elem.Id),
+                        new XElement("DishId", elem.DishId),
+                        new XElement("StorageId", elem.StorageId),
+                        new XElement("Count", elem.Count)));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(StorageDishFileName);
+            }
+        }
     }
 }

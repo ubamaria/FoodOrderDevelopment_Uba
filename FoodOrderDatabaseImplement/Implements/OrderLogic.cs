@@ -8,13 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FoodOrderDatabaseImplement.Implement
+namespace FoodOrderDatabaseImplement.Implements
 {
     public class OrderLogic : IOrderLogic
     {
         public void CreateOrUpdate(OrderBindingModel model)
         {
-            {
                 using (var context = new FoodOrderDatabase())
                 {
                     Order element;
@@ -40,7 +39,6 @@ namespace FoodOrderDatabaseImplement.Implement
                     element.DateImplement = model.DateImplement;
                     context.SaveChanges();
                 }
-            }
         }
         public void Delete(OrderBindingModel model)
         {
