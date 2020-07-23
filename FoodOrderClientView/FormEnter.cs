@@ -16,7 +16,7 @@ namespace FoodOrderClientView
         public FormEnter()
         {
             InitializeComponent();
-            Program.Client = null;
+            
         }
         private void ButtonRegister_Click(object sender, EventArgs e)
         {

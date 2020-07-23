@@ -81,11 +81,10 @@ namespace FoodOrderListImplement.Implements
         }
         private Order CreateModel(OrderBindingModel model, Order Order)
         {
-            Order.SetId = model.SetId == 0 ? Order.SetId : model.SetId;
-            Order.ClientId = model.ClientId;
+
+            Order.SetId = model.SetId;
             Order.Count = model.Count;
             Order.ClientId = (int)model.ClientId;
-            Order.ImplementerId = model.ImplementerId;
             Order.Sum = model.Sum;
             Order.Status = model.Status;
             Order.DateCreate = model.DateCreate;
@@ -94,20 +93,25 @@ namespace FoodOrderListImplement.Implements
         }
         private OrderViewModel CreateViewModel(Order Order)
         {
-            string SetName = "";
-            for (int j = 0; j < source.Sets.Count; ++j)
+            string SetName = null;
+            foreach (var set in source.Sets)
             {
-                if (source.Sets[j].Id == Order.SetId)
+                if (set.Id == Order.SetId)
                 {
-                    SetName = source.Sets[j].SetName;
-                    break;
+                    SetName = set.SetName;
                 }
+            }
+
+            if (SetName == null)
+            {
+                throw new Exception("Продукт не найден");
             }
             return new OrderViewModel
             {
                 Id = Order.Id,
-                ClientId = Order.ClientId,
+                SetId = Order.SetId,
                 SetName = SetName,
+                ClientId = Order.ClientId,
                 Count = Order.Count,
                 Sum = Order.Sum,
                 Status = Order.Status,

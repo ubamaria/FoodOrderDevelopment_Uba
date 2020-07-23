@@ -4,14 +4,16 @@ using FoodOrderDatabaseImplement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FoodOrderDatabaseImplement.Migrations
 {
     [DbContext(typeof(FoodOrderDatabase))]
-    partial class FoodOrderDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20200524095325_Messages_Migration")]
+    partial class Messages_Migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,7 +211,7 @@ namespace FoodOrderDatabaseImplement.Migrations
                         .IsRequired();
 
                     b.HasOne("FoodOrderDatabaseImplement.Models.Implementer", "Implementer")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("ImplementerId");
 
                     b.HasOne("FoodOrderDatabaseImplement.Models.Set", "Set")

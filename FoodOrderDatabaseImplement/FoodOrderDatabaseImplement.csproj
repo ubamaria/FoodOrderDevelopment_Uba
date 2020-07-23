@@ -25,10 +25,8 @@
 
     <Compile Remove="Migrations\20200424090753_ImplementersMig.cs" />
     <Compile Remove="Migrations\20200424090753_ImplementersMig.Designer.cs" />
-    <Compile Remove="Migrations\20200515072259_ImplementersMigration.cs" />
-    <Compile Remove="Migrations\20200515072259_ImplementersMigration.Designer.cs" />
-    <Compile Remove="Migrations\20200605084137_MigrationImplementer.cs" />
-    <Compile Remove="Migrations\20200605084137_MigrationImplementer.Designer.cs" />
+    <Compile Remove="Migrations\20200515081111_MessagesMigration.cs" />
+    <Compile Remove="Migrations\20200515081111_MessagesMigration.Designer.cs" />
 
   </ItemGroup>
 

@@ -338,3 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/FoodOrderDatabaseImplement/Migrations/20200524192126_MessageMig.cs
+/FoodOrderDatabaseImplement/Migrations/20200524192126_MessageMig.Designer.cs
