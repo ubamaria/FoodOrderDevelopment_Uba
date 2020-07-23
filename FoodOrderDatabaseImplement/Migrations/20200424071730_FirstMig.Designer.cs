@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodOrderDatabaseImplement.Migrations
 {
     [DbContext(typeof(FoodOrderDatabase))]
-    [Migration("20200319190601_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200424071730_FirstMig")]
+    partial class FirstMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,7 +69,7 @@ namespace FoodOrderDatabaseImplement.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("FoodOrderImplement.Models.Set", b =>
+            modelBuilder.Entity("FoodOrderDatabaseImplement.Models.Set", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +88,7 @@ namespace FoodOrderDatabaseImplement.Migrations
                     b.ToTable("Sets");
                 });
 
-            modelBuilder.Entity("FoodOrderImplement.Models.SetOfDish", b =>
+            modelBuilder.Entity("FoodOrderDatabaseImplement.Models.SetOfDish", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -115,14 +115,14 @@ namespace FoodOrderDatabaseImplement.Migrations
 
             modelBuilder.Entity("FoodOrderDatabaseImplement.Models.Order", b =>
                 {
-                    b.HasOne("FoodOrderImplement.Models.Set", "Set")
+                    b.HasOne("FoodOrderDatabaseImplement.Models.Set", "Set")
                         .WithMany("Orders")
                         .HasForeignKey("SetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FoodOrderImplement.Models.SetOfDish", b =>
+            modelBuilder.Entity("FoodOrderDatabaseImplement.Models.SetOfDish", b =>
                 {
                     b.HasOne("FoodOrderDatabaseImplement.Models.Dish", "Dish")
                         .WithMany("SetOfDishes")
@@ -130,7 +130,7 @@ namespace FoodOrderDatabaseImplement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FoodOrderImplement.Models.Set", "Set")
+                    b.HasOne("FoodOrderDatabaseImplement.Models.Set", "Set")
                         .WithMany("SetOfDishes")
                         .HasForeignKey("SetId")
                         .OnDelete(DeleteBehavior.Cascade)
